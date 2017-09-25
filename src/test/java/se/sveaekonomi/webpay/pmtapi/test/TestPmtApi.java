@@ -6,7 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import se.sveaekonomi.pmtapi.entity.Order;
 import se.sveaekonomi.webpay.pmtapi.PmtApiClientRF;
+import se.sveaekonomi.webpay.pmtapi.PmtApiUtil;
 
 public class TestPmtApi {
 
@@ -27,7 +29,12 @@ public class TestPmtApi {
 		
 			client.loadConfig("config-test.xml");
 			client.init();
-			System.out.println("getOrder: " + client.getOrder(154234L));
+			
+			String jsonOrder = client.getOrder(154234L);
+			
+			Order order = PmtApiUtil.gson.fromJson(jsonOrder, Order.class);
+			System.out.println("Merchant order ID: " + order.getMerchantOrderId());
+			System.out.println("Order has " + order.getOrderRows().size() + " lines.");
 			
 		} catch (Exception e) {
 			

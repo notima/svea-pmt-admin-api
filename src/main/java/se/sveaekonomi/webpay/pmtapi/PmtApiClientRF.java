@@ -93,7 +93,6 @@ public class PmtApiClientRF {
 	
 	
 	public String getOrder(Long orderId) throws Exception {
-		StringBuffer result = new StringBuffer();
 
 		String ts = PmtApiUtil.getTimestampStr();
 		String auth = PmtApiUtil.calculateAuthHeader(merchantId, "", secretWord, ts);
@@ -114,7 +113,7 @@ public class PmtApiClientRF {
 			clientLog.debug(response.raw().toString());
 		}		
 		
-		return result.toString();
+		return resultMsg;
 	}
 	
 }

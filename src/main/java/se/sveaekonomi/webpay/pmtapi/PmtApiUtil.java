@@ -10,13 +10,31 @@ import java.util.Base64;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class PmtApiUtil {
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-	public static DateFormat dfmt;
+public class PmtApiUtil {
+	
+	// DateTime Format used to communicate with Svea's API (UTC/GMT)
+	public static DateFormat dateTimeFmtGMT;
+	// Date Format for JSon etc. 
+	public static final String dfmtStr = "yyyy-MM-dd";
+	public static final DateFormat dateFmt;
+	public static Gson gson;
 	
 	static {
-		dfmt = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		dfmt.setTimeZone(TimeZone.getTimeZone("GMT"));
+		
+		dateTimeFmtGMT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		dateTimeFmtGMT.setTimeZone(TimeZone.getTimeZone("GMT"));
+		
+		GsonBuilder builder = new GsonBuilder().setPrettyPrinting().setDateFormat(dfmtStr);
+		builder.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY);
+		builder.setLenient();
+		gson = builder.create();
+		
+		dateFmt = new SimpleDateFormat(dfmtStr);
+		
 	}
 	
 	/**
@@ -60,7 +78,7 @@ public class PmtApiUtil {
 	public static String getTimestampStr() {
 		// Get time in UTC
 		Calendar cal = Calendar.getInstance();
-		String ts = PmtApiUtil.dfmt.format(cal.getTime());
+		String ts = PmtApiUtil.dateTimeFmtGMT.format(cal.getTime());
 		return ts;
 	}
 	
