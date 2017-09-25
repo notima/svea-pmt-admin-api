@@ -6,7 +6,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -16,7 +15,8 @@ public class PmtApiUtil {
 	public static DateFormat dfmt;
 	
 	static {
-		dfmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		dfmt = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		dfmt.setTimeZone(TimeZone.getTimeZone("GMT"));
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class PmtApiUtil {
 	 */
 	public static String getTimestampStr() {
 		// Get time in UTC
-		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(ZoneId.of("UTC")));
+		Calendar cal = Calendar.getInstance();
 		String ts = PmtApiUtil.dfmt.format(cal.getTime());
 		return ts;
 	}

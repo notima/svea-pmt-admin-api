@@ -12,10 +12,10 @@ public interface PmtApiService {
 	@Headers({
 		"Content-type: application/json"
 	})
-	@GET("/api/v1/orders/{orderId}")
+	@GET("/api/orders/{orderId}")
 	Call<ResponseBody> getOrder(
-			@Header("Timestamp")String timestamp,
 			@Header("Authorization")String authorization,
+			@Header("Timestamp")String timestamp,
 			@Path("orderId")String orderId);
 	
 }

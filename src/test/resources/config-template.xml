@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+	This configuration file must be copied to location config.xml
+	See Sveas test documentation for testing details.
+ -->
+
+<configuration>
+
+	<server>https://checkoutapistage.svea.com</server>
+	<merchantId>NNNNNN</merchantId>
+	
+	<!-- Below secret word is Svea's test secret word. -->
+	
+	<secretWord>SECRET</secretWord>
+
+</configuration>

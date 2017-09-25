@@ -4,6 +4,8 @@ import java.io.File;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Map;
+import java.util.TreeMap;
 
 import okhttp3.ResponseBody;
 
@@ -96,10 +98,7 @@ public class PmtApiClientRF {
 		String ts = PmtApiUtil.getTimestampStr();
 		String auth = PmtApiUtil.calculateAuthHeader(merchantId, "", secretWord, ts);
 		
-		clientLog.debug("Timestamp: " + ts);
-		clientLog.debug("Authorization: " + auth);
-		
-		Call<ResponseBody> call = service.getOrder(ts, auth, orderId.toString());
+		Call<ResponseBody> call = service.getOrder(auth, ts, orderId.toString());
 		
 		Response<ResponseBody> response = call.execute();
 		
