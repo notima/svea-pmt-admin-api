@@ -7,7 +7,7 @@
 
 <configuration>
 
-	<server>https://checkoutapistage.svea.com</server>
+	<server>https://paymentadminapistage.svea.com</server>
 	<merchantId>NNNNNN</merchantId>
 	
 	<!-- Below secret word is Svea's test secret word. -->

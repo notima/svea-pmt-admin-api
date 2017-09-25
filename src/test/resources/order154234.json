@@ -1,0 +1,49 @@
+{
+	"Id": 154234,
+	"Currency": "SEK",
+	"MerchantOrderId": "56943879",
+	"OrderStatus": "Open",
+	"EmailAddress": "testcompanycdon@gmail.com",
+	"PhoneNumber": "0701123123",
+	"CustomerReference": "Bet2",
+	"PaymentType": null,
+	"CreationDate": "2017-09-25T07:27:06",
+	"NationalId": "194608142222",
+	"IsCompany": true,
+	"CancelledAmount": 0,
+	"OrderAmount": 428900,
+	"BillingAddress": null,
+	"ShippingAddress": null,
+	"Deliveries": null,
+	"OrderRows": [
+		{
+			"OrderRowId": 1,
+			"ArticleNumber": "10000000-3",
+			"Name": "Frakt",
+			"Quantity": 100,
+			"UnitPrice": 9900,
+			"DiscountPercent": 0,
+			"VatPercent": 0,
+			"Unit": null,
+			"IsCancelled": false,
+			"Actions": [
+			]
+		},
+		{
+			"OrderRowId": 2,
+			"ArticleNumber": "5030633830",
+			"Name": "Dell 27\" LED UltraSharp U2715H  ",
+			"Quantity": 100,
+			"UnitPrice": 419000,
+			"DiscountPercent": 0,
+			"VatPercent": 2500,
+			"Unit": null,
+			"IsCancelled": false,
+			"Actions": [
+			]
+		}
+	],
+	"Actions": [
+	],
+	"SveaWillBuy": null
+}
