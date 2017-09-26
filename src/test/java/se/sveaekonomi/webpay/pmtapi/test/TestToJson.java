@@ -7,9 +7,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import se.sveaekonomi.pmtapi.entity.Order;
-import se.sveaekonomi.pmtapi.entity.OrderRow;
 import se.sveaekonomi.webpay.pmtapi.PmtApiUtil;
+import se.sveaekonomi.webpay.pmtapi.entity.Order;
+import se.sveaekonomi.webpay.pmtapi.entity.OrderRow;
 
 public class TestToJson {
 

@@ -10,7 +10,7 @@ import se.sveaekonomi.webpay.pmtapi.PmtApiClientRF;
 import se.sveaekonomi.webpay.pmtapi.PmtApiUtil;
 import se.sveaekonomi.webpay.pmtapi.entity.Order;
 
-public class TestPmtApi {
+public class TestDeliverOrder {
 
 	@Before
 	public void setUp() throws Exception {
@@ -30,10 +30,9 @@ public class TestPmtApi {
 			client.loadConfig("config-test.xml");
 			client.init();
 			
-			Order order = client.getOrder(154233L);
+			String result = client.deliverCompleteOrder(154109L);
 			
-			System.out.println("Merchant order ID: " + order.getMerchantOrderId());
-			System.out.println("Order has " + order.getOrderRows().size() + " lines.");
+			System.out.println(result);
 			
 		} catch (Exception e) {
 			

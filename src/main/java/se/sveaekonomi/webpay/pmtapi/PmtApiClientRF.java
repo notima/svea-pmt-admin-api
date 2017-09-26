@@ -4,8 +4,6 @@ import java.io.File;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Map;
-import java.util.TreeMap;
 
 import okhttp3.ResponseBody;
 
@@ -17,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
+import se.sveaekonomi.webpay.pmtapi.entity.Order;
 
 public class PmtApiClientRF {
 
@@ -92,7 +91,7 @@ public class PmtApiClientRF {
 	}
 	
 	
-	public String getOrder(Long orderId) throws Exception {
+	public Order getOrder(Long orderId) throws Exception {
 
 		String ts = PmtApiUtil.getTimestampStr();
 		String auth = PmtApiUtil.calculateAuthHeader(merchantId, "", secretWord, ts);
@@ -112,8 +111,48 @@ public class PmtApiClientRF {
 			clientLog.debug(resultMsg);
 			clientLog.debug(response.raw().toString());
 		}		
-		
-		return resultMsg;
+
+		if (resultMsg!=null && resultMsg.trim().length()>0) {
+			return PmtApiUtil.gson.fromJson(resultMsg, Order.class);
+		} else {
+			return null;
+		}
 	}
+	
+	
+	public String deliverCompleteOrder(Long orderId) throws Exception {
+		
+		String ts = PmtApiUtil.getTimestampStr();
+		String auth = PmtApiUtil.calculateAuthHeader(merchantId, "", secretWord, ts);
+
+		Call<ResponseBody> call = service.deliverOrder(auth, ts, orderId.toString(), "");
+		
+		Response<ResponseBody> response = call.execute();
+		
+		String resultMsg = null; 
+
+		if (response.errorBody()!=null && response.errorBody().string()!=null && response.errorBody().string().length()>0) {
+			clientLog.debug(response.errorBody().string());
+			resultMsg = response.errorBody().string();
+		} else {
+			if (response.code()==200) {
+				resultMsg = response.body().string();
+				clientLog.debug(response.message());
+				clientLog.debug(resultMsg);
+				clientLog.debug(response.raw().toString());
+			} else {
+				resultMsg = response.message();
+				clientLog.debug(response.code() + " : " + response.message());
+			}
+		}		
+
+		if (resultMsg!=null && resultMsg.trim().length()>0) {
+			return resultMsg;
+		} else {
+			return null;
+		}
+		
+	}
+	
 	
 }
