@@ -7,8 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.sveaekonomi.webpay.pmtapi.PmtApiClientRF;
-import se.sveaekonomi.webpay.pmtapi.PmtApiUtil;
-import se.sveaekonomi.webpay.pmtapi.entity.Order;
 
 public class TestDeliverOrder {
 
