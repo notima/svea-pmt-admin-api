@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.sveaekonomi.webpay.pmtapi.PmtApiClientRF;
-import se.sveaekonomi.webpay.pmtapi.PmtApiUtil;
 import se.sveaekonomi.webpay.pmtapi.entity.Order;
 
 public class TestPmtApi {
@@ -30,10 +29,16 @@ public class TestPmtApi {
 			client.loadConfig("config-test.xml");
 			client.init();
 			
-			Order order = client.getOrder(154233L);
+			Long orderId = 238944L;
+			
+			Order order = client.getOrder(orderId);
+			
+			if (order==null) {
+				fail("No such order: " + orderId);
+				return;
+			}
 			
 			System.out.println("Merchant order ID: " + order.getMerchantOrderId());
-			System.out.println("Order has " + order.getOrderRows().size() + " lines.");
 			
 		} catch (Exception e) {
 			

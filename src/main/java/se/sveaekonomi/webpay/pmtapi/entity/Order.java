@@ -33,8 +33,23 @@ public class Order {
 	@SerializedName("OrderAmount")
 	private	Double	orderAmount;
 	
+	@SerializedName("BillingAddress")
+	private Address billingAddress;
+	
+	@SerializedName("ShippingAddress")
+	private Address	shippingAddress;
+	
+	@SerializedName("Deliveries")
+	private List<Delivery> deliveries;
+	
 	@SerializedName("OrderRows")
 	private List<OrderRow> orderRows;
+
+	@SerializedName("Actions")
+	private List<String>	actions;
+	
+	@SerializedName("SveaWillBuy")
+	private String	sveaWillBuy;
 	
 	public Long getId() {
 		return id;
@@ -123,6 +138,36 @@ public class Order {
 	}
 	public void setOrderRows(List<OrderRow> orderRows) {
 		this.orderRows = orderRows;
+	}
+	public Address getBillingAddress() {
+		return billingAddress;
+	}
+	public void setBillingAddress(Address billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+	public Address getShippingAddress() {
+		return shippingAddress;
+	}
+	public void setShippingAddress(Address shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+	public List<Delivery> getDeliveries() {
+		return deliveries;
+	}
+	public void setDeliveries(List<Delivery> deliveries) {
+		this.deliveries = deliveries;
+	}
+	public List<String> getActions() {
+		return actions;
+	}
+	public void setActions(List<String> actions) {
+		this.actions = actions;
+	}
+	public String getSveaWillBuy() {
+		return sveaWillBuy;
+	}
+	public void setSveaWillBuy(String sveaWillBuy) {
+		this.sveaWillBuy = sveaWillBuy;
 	}
 	
 	
