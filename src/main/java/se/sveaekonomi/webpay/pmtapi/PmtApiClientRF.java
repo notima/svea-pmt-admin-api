@@ -18,6 +18,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import se.sveaekonomi.webpay.pmtapi.entity.Order;
+import se.sveaekonomi.webpay.pmtapi.entity.OrderRow;
 import se.sveaekonomi.webpay.pmtapi.util.JsonUtil;
 
 public class PmtApiClientRF {
@@ -125,10 +126,18 @@ public class PmtApiClientRF {
 	
 	public String deliverCompleteOrder(Long orderId) throws Exception {
 		
+		Order order = getOrder(orderId);
+		
 		String ts = PmtApiUtil.getTimestampStr();
 		List<Long> lines = new ArrayList<Long>();
-		lines.add(1L);
-		lines.add(2L);
+		
+		List<OrderRow> rowList = order.getOrderRows();
+		for (OrderRow or : rowList) {
+			if (!or.isCancelled()) {
+				lines.add(or.getOrderRowId());
+			}
+		}
+		
 		String body = "{ \"orderRowIds\": " + JsonUtil.gson.toJson(lines) + " }";
 		
 		String auth = PmtApiUtil.calculateAuthHeader(merchantId, body, secretWord, ts);
