@@ -20,7 +20,10 @@ public interface PmtApiService {
 			@Header("Timestamp")String timestamp,
 			@Path("orderId")String orderId);
 	
-	
+
+	@Headers({
+		"Content-type: application/json"
+	})
 	@POST("/api/v1/orders/{orderId}/deliveries")
 	Call<ResponseBody> deliverOrder(
 			@Header("Authorization")String auth,

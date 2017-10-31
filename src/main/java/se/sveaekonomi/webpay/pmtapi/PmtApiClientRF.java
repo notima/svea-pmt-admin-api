@@ -4,6 +4,8 @@ import java.io.File;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 
@@ -14,8 +16,9 @@ import org.slf4j.Logger;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 import se.sveaekonomi.webpay.pmtapi.entity.Order;
+import se.sveaekonomi.webpay.pmtapi.util.JsonUtil;
 
 public class PmtApiClientRF {
 
@@ -80,7 +83,7 @@ public class PmtApiClientRF {
 		// Disable SNI to prevent SSL-name problem
 		// System.setProperty("jsse.enableSNIExtension", "false");
 		
-		SimpleXmlConverterFactory converter = SimpleXmlConverterFactory.create();
+		ScalarsConverterFactory converter = ScalarsConverterFactory.create();
 		
 		retroFit = new Retrofit.Builder().baseUrl(this.serverName)
 				.addConverterFactory(converter)
@@ -123,9 +126,14 @@ public class PmtApiClientRF {
 	public String deliverCompleteOrder(Long orderId) throws Exception {
 		
 		String ts = PmtApiUtil.getTimestampStr();
-		String auth = PmtApiUtil.calculateAuthHeader(merchantId, "", secretWord, ts);
+		List<Long> lines = new ArrayList<Long>();
+		lines.add(1L);
+		lines.add(2L);
+		String body = "{ \"orderRowIds\": " + JsonUtil.gson.toJson(lines) + " }";
+		
+		String auth = PmtApiUtil.calculateAuthHeader(merchantId, body, secretWord, ts);
 
-		Call<ResponseBody> call = service.deliverOrder(auth, ts, orderId.toString(), "");
+		Call<ResponseBody> call = service.deliverOrder(auth, ts, orderId.toString(), body);
 		
 		Response<ResponseBody> response = call.execute();
 		

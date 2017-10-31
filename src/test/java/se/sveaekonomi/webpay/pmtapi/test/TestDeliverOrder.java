@@ -25,10 +25,10 @@ public class TestDeliverOrder {
 		PmtApiClientRF client = new PmtApiClientRF();
 		try {
 		
-			client.loadConfig("config-test.xml");
+			client.loadConfig("config-test-northbike.xml");
 			client.init();
 			
-			String result = client.deliverCompleteOrder(154109L);
+			String result = client.deliverCompleteOrder(267842L);
 			
 			System.out.println(result);
 			

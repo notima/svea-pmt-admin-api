@@ -8,8 +8,9 @@ import org.junit.Test;
 
 import se.sveaekonomi.webpay.pmtapi.PmtApiClientRF;
 import se.sveaekonomi.webpay.pmtapi.entity.Order;
+import se.sveaekonomi.webpay.pmtapi.util.JsonUtil;
 
-public class TestPmtApi {
+public class TestGetOrder {
 
 	@Before
 	public void setUp() throws Exception {
@@ -26,10 +27,10 @@ public class TestPmtApi {
 		PmtApiClientRF client = new PmtApiClientRF();
 		try {
 		
-			client.loadConfig("config-test.xml");
+			client.loadConfig("config-test-northbike.xml");
 			client.init();
 			
-			Long orderId = 238944L;
+			Long orderId = 267842L;
 			
 			Order order = client.getOrder(orderId);
 			
@@ -38,7 +39,7 @@ public class TestPmtApi {
 				return;
 			}
 			
-			System.out.println("Merchant order ID: " + order.getMerchantOrderId());
+			System.out.println(JsonUtil.gson.toJson(order));
 			
 		} catch (Exception e) {
 			
