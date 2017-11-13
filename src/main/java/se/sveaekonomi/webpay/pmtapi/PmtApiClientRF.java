@@ -127,6 +127,7 @@ public class PmtApiClientRF {
 	public String deliverCompleteOrder(Long orderId) throws Exception {
 		
 		Order order = getOrder(orderId);
+		if (order==null) return("Can't deliver order " + orderId + " (not found)");
 		
 		String ts = PmtApiUtil.getTimestampStr();
 		List<Long> lines = new ArrayList<Long>();
