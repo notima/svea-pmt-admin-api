@@ -16,7 +16,7 @@ public class JsonUtil {
 	static {
 		
 		GsonBuilder builder = new GsonBuilder().setPrettyPrinting().setDateFormat(dfmtStr);
-		builder.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY);
+		builder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE);
 		builder.setLenient();
 		gson = builder.create();
 		dfmt = new SimpleDateFormat(dfmtStr);
