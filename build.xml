@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="pmt-admin-api" default="pmt-admin-api" basedir=".">
+
+	<target name="pmt-admin-api">
+
+	  	<exec dir="${basedir}" executable="bash">
+	  		<arg line="-c 'mvn install -DskipTests'"/>
+	  	</exec>
+		
+    </target>
+</project>
