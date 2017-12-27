@@ -129,6 +129,10 @@ public class PmtApiClientRF {
 		Order order = getOrder(orderId);
 		if (order==null) return("Can't deliver order " + orderId + " (not found)");
 		
+		if ("Delivered".equals(order.getOrderStatus())) {
+			return orderId + " already delivered";
+		}
+		
 		String ts = PmtApiUtil.getTimestampStr();
 		List<Long> lines = new ArrayList<Long>();
 		
