@@ -4,7 +4,7 @@
 	<target name="pmt-admin-api">
 
 	  	<exec dir="${basedir}" executable="bash">
-	  		<arg line="-c 'mvn install -DskipTests'"/>
+	  		<arg line="-c 'mvn install package assembly:single -DskipTests'"/>
 	  	</exec>
 		
     </target>
