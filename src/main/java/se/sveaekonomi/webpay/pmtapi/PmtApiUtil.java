@@ -17,10 +17,18 @@ import com.google.gson.GsonBuilder;
 public class PmtApiUtil {
 	
 	// DateTime Format used to communicate with Svea's API (UTC/GMT)
+	// This format is only used in the API-communication when setting the timestamp included 
+	// in the MAC calculation.
 	public static DateFormat dateTimeFmtGMT;
 	// Date Format for JSon etc. 
 	public static final String dfmtStr = "yyyy-MM-dd";
 	public static final DateFormat dateFmt;
+	
+	// Date Format for Json DateTime
+	public static final String dateTimeFmtStr = "yyyy-MM-dd'T'HH:mm:ss";
+	public static final DateFormat dateTimeFmt;
+	
+	
 	public static Gson gson;
 	
 	static {
@@ -34,6 +42,7 @@ public class PmtApiUtil {
 		gson = builder.create();
 		
 		dateFmt = new SimpleDateFormat(dfmtStr);
+		dateTimeFmt = new SimpleDateFormat(dateTimeFmtStr);
 		
 	}
 	
