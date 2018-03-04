@@ -1,4 +1,4 @@
-package se.sveaekonomi.webpay.pmtapi.test;
+package org.notima.svea.pmtapi.test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,10 +6,9 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import se.sveaekonomi.webpay.pmtapi.PmtApiUtil;
-import se.sveaekonomi.webpay.pmtapi.entity.Order;
-import se.sveaekonomi.webpay.pmtapi.entity.OrderRow;
+import org.notima.svea.pmtapi.PmtApiUtil;
+import org.notima.svea.pmtapi.entity.Order;
+import org.notima.svea.pmtapi.entity.OrderRow;
 
 public class TestToJson {
 

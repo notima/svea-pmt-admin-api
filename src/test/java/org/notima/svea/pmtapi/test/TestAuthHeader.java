@@ -1,12 +1,9 @@
-package se.sveaekonomi.webpay.pmtapi.test;
-
-import java.util.Calendar;
+package org.notima.svea.pmtapi.test;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import se.sveaekonomi.webpay.pmtapi.PmtApiUtil;
+import org.notima.svea.pmtapi.PmtApiUtil;
 
 public class TestAuthHeader {
 

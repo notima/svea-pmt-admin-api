@@ -1,12 +1,11 @@
-package se.sveaekonomi.webpay.pmtapi.test;
+package org.notima.svea.pmtapi.test;
 
 import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import se.sveaekonomi.webpay.pmtapi.PmtApiClientRF;
+import org.notima.svea.pmtapi.PmtApiClientRF;
 
 public class TestDeliverOrder {
 

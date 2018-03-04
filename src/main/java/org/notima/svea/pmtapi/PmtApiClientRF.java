@@ -1,4 +1,4 @@
-package se.sveaekonomi.webpay.pmtapi;
+package org.notima.svea.pmtapi;
 
 import java.io.File;
 import java.net.URL;
@@ -11,16 +11,27 @@ import okhttp3.ResponseBody;
 
 import org.apache.commons.configuration2.XMLConfiguration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
+import org.notima.svea.pmtapi.entity.Order;
+import org.notima.svea.pmtapi.entity.OrderRow;
+import org.notima.svea.pmtapi.util.JsonUtil;
 import org.slf4j.Logger;
 
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-import se.sveaekonomi.webpay.pmtapi.entity.Order;
-import se.sveaekonomi.webpay.pmtapi.entity.OrderRow;
-import se.sveaekonomi.webpay.pmtapi.util.JsonUtil;
 
+/**
+ * This is a RetroFit-based REST-client to Svea Ekonomi's Payment Admin API.
+ * 
+ * The client must be initialized with 
+ * * Merchant ID
+ * * Secret Word
+ * * Server name
+ * 
+ * @author Daniel Tamm
+ *
+ */
 public class PmtApiClientRF {
 
 	public static Logger clientLog = org.slf4j.LoggerFactory.getLogger("PmtApiClientRF");
@@ -37,7 +48,13 @@ public class PmtApiClientRF {
 	private	Retrofit	retroFit = null;
 	private PmtApiService service = null;
 
-	
+	/**
+	 * Loads configuration from a configuration file. The file must be avalable as a resource
+	 * or the full path should be supplied.
+	 * 
+	 * @param configfile		The name (if resource) or full path + name of the configuration file.
+	 * @throws Exception		
+	 */
 	public void loadConfig(String configfile) throws Exception {
 
 		URL url = null;
@@ -73,7 +90,11 @@ public class PmtApiClientRF {
 	}
 	
 	/**
-	 * Initializes client
+	 * Initializes client from supplied parameters
+	 * 
+	 * @param	serverName		The server (ie https://server.com)
+	 * @param	merchantId		The merchant ID supplied by Svea Ekonomi.
+	 * @param	secretWord		The secret word for the given merchant ID.
 	 */
 	public void init(String serverName, String merchantId, String secretWord) {
 
@@ -94,7 +115,12 @@ public class PmtApiClientRF {
 		
 	}
 	
-	
+	/**
+	 * 
+	 * @param orderId	The checkout order ID.
+	 * @return			The order as a java object.
+	 * @throws Exception
+	 */
 	public Order getOrder(Long orderId) throws Exception {
 
 		String ts = PmtApiUtil.getTimestampStr();
@@ -123,7 +149,13 @@ public class PmtApiClientRF {
 		}
 	}
 	
-	
+	/**
+	 * Tells Svea Ekonomi that this order is delivered and should be billed.
+	 * 
+	 * @param orderId		The order to be delivered
+	 * @return				
+	 * @throws Exception
+	 */
 	public String deliverCompleteOrder(Long orderId) throws Exception {
 		
 		Order order = getOrder(orderId);

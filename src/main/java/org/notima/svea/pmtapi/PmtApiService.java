@@ -1,4 +1,4 @@
-package se.sveaekonomi.webpay.pmtapi;
+package org.notima.svea.pmtapi;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

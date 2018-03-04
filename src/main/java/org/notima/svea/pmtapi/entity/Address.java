@@ -1,4 +1,4 @@
-package se.sveaekonomi.webpay.pmtapi.entity;
+package org.notima.svea.pmtapi.entity;
 
 import com.google.gson.annotations.SerializedName;
 

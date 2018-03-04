@@ -1,4 +1,4 @@
-package se.sveaekonomi.webpay.pmtapi.util;
+package org.notima.svea.pmtapi.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
