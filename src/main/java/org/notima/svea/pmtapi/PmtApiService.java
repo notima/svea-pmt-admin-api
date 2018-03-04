@@ -1,13 +1,13 @@
 package org.notima.svea.pmtapi;
 
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.Header;
-import retrofit2.http.Headers;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
+import org.notima.svea.pmtapi.entity.Order;
+
+import retrofit.http.Body;
+import retrofit.http.GET;
+import retrofit.http.Header;
+import retrofit.http.Headers;
+import retrofit.http.POST;
+import retrofit.http.Path;
 
 public interface PmtApiService {
 
@@ -15,7 +15,7 @@ public interface PmtApiService {
 		"Content-type: application/json"
 	})
 	@GET("/api/v1/orders/{orderId}")
-	Call<ResponseBody> getOrder(
+	Order getOrder(
 			@Header("Authorization")String authorization,
 			@Header("Timestamp")String timestamp,
 			@Path("orderId")String orderId);
@@ -25,7 +25,7 @@ public interface PmtApiService {
 		"Content-type: application/json"
 	})
 	@POST("/api/v1/orders/{orderId}/deliveries")
-	Call<ResponseBody> deliverOrder(
+	String deliverOrder(
 			@Header("Authorization")String auth,
 			@Header("Timestamp")String ts,
 			@Path("orderId")String orderId,

@@ -6,16 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import okhttp3.ResponseBody;
-
 import org.notima.svea.pmtapi.entity.Order;
 import org.notima.svea.pmtapi.entity.OrderRow;
 import org.notima.svea.pmtapi.util.JsonUtil;
 
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
+import retrofit.RestAdapter;
+import retrofit.client.Response;
 
 /**
  * This is a RetroFit-based REST-client to Svea Ekonomi's Payment Admin API.
@@ -38,7 +34,7 @@ public class PmtApiClientRF {
 	private String secretWord;
 	private String serverName;
 	
-	private	Retrofit	retroFit = null;
+	private	RestAdapter	retroFit = null;
 	private PmtApiService service = null;
 	
 	/**
@@ -57,10 +53,7 @@ public class PmtApiClientRF {
 		// Disable SNI to prevent SSL-name problem
 		// System.setProperty("jsse.enableSNIExtension", "false");
 		
-		ScalarsConverterFactory converter = ScalarsConverterFactory.create();
-		
-		retroFit = new Retrofit.Builder().baseUrl(this.serverName)
-				.addConverterFactory(converter)
+		retroFit = new RestAdapter.Builder().setEndpoint(this.serverName)
 				.build();
 
 		service = retroFit.create(PmtApiService.class);		
@@ -78,27 +71,15 @@ public class PmtApiClientRF {
 		String ts = PmtApiUtil.getTimestampStr();
 		String auth = PmtApiUtil.calculateAuthHeader(merchantId, "", secretWord, ts);
 		
-		Call<ResponseBody> call = service.getOrder(auth, ts, orderId.toString());
+		Order order = null;
 		
-		Response<ResponseBody> response = call.execute();
-		
-		String resultMsg = null; 
-
-		if (response.errorBody()!=null) {
-			clientLog.warning(response.errorBody().string());
-			resultMsg = response.errorBody().string();
-		} else {
-			resultMsg = response.body().string();
-			clientLog.fine(response.message());
-			clientLog.fine(resultMsg);
-			clientLog.fine(response.raw().toString());
-		}		
-
-		if (resultMsg!=null && resultMsg.trim().length()>0) {
-			return PmtApiUtil.gson.fromJson(resultMsg, Order.class);
-		} else {
-			return null;
+		try {
+			order = service.getOrder(auth, ts, orderId.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
+		return order;
 	}
 	
 	/**
@@ -131,33 +112,9 @@ public class PmtApiClientRF {
 		
 		String auth = PmtApiUtil.calculateAuthHeader(merchantId, body, secretWord, ts);
 
-		Call<ResponseBody> call = service.deliverOrder(auth, ts, orderId.toString(), body);
+		String resultMsg = service.deliverOrder(auth, ts, orderId.toString(), body);
 		
-		Response<ResponseBody> response = call.execute();
-		
-		String resultMsg = null; 
-
-		if (response.errorBody()!=null && response.errorBody().string()!=null && response.errorBody().string().length()>0) {
-			clientLog.warning(response.errorBody().string());
-			resultMsg = response.errorBody().string();
-		} else {
-			if (response.code()==200) {
-				resultMsg = response.body().string();
-				clientLog.fine(response.message());
-				clientLog.fine(resultMsg);
-				clientLog.fine(response.raw().toString());
-			} else {
-				resultMsg = response.message();
-				clientLog.warning(response.code() + " : " + response.message());
-			}
-		}		
-
-		if (resultMsg!=null && resultMsg.trim().length()>0) {
-			return resultMsg;
-		} else {
-			return null;
-		}
-		
+		return resultMsg;
 	}
 	
 	
