@@ -6,7 +6,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -100,7 +100,7 @@ public class PmtApiUtil {
 	 */
 	
 	public static String base64encodeMsg(String message) {
-		return Base64.getEncoder().encodeToString(message.getBytes());
+		return new String(Base64.encodeBase64(message.getBytes()));
 	}
 	
 	
@@ -127,7 +127,7 @@ public class PmtApiUtil {
 					buf.append(c);
 			}
 		}
-		String result = new String(Base64.getDecoder().decode(buf.toString())); 
+		String result = new String(Base64.decodeBase64(buf.toString().getBytes())); 
 		
 		return result;
 		

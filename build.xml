@@ -3,6 +3,7 @@
 
 	<loadproperties>
 		<file file="ant-build.properties"/>
+		<file file="ant-build-static.properties"/>
 	</loadproperties>
 	
 	<target name="pmt-admin-api">
@@ -24,11 +25,11 @@
 	
 	<target name="2maven">
 		
-		<copy file="${maven-local-dir}/se/sveaekonomi/webpay/pmt-admin-api/maven-metadata-local.xml" tofile="${maven-release-dir}/se/sveaekonomi/webpay/pmt-admin-api/maven-metadata.xml"/>
-		<copy file="${maven-local-dir}/se/sveaekonomi/webpay/pmt-admin-api/maven-metadata-local.xml.md5" tofile="${maven-release-dir}/se/sveaekonomi/webpay/pmt-admin-api/maven-metadata.xml.md5"/>
-		<copy file="${maven-local-dir}/se/sveaekonomi/webpay/pmt-admin-api/maven-metadata-local.xml.sha1" tofile="${maven-release-dir}/se/sveaekonomi/webpay/pmt-admin-api/maven-metadata.xml.sha1"/>
-		<copy todir="${maven-release-dir}/se/sveaekonomi/webpay/pmt-admin-api/0.0.1">
-			<fileset dir="${maven-local-dir}/se/sveaekonomi/webpay/pmt-admin-api/0.0.1"/> 
+		<copy file="${maven-local-dir}/${maven-group}/${maven-artifact}/maven-metadata-local.xml" tofile="${maven-release-dir}/${maven-group}/${maven-artifact}/maven-metadata.xml"/>
+		<copy file="${maven-local-dir}/${maven-group}/${maven-artifact}/maven-metadata-local.xml.md5" tofile="${maven-release-dir}/${maven-group}/${maven-artifact}/maven-metadata.xml.md5"/>
+		<copy file="${maven-local-dir}/${maven-group}/${maven-artifact}/maven-metadata-local.xml.sha1" tofile="${maven-release-dir}/${maven-group}/${maven-artifact}/maven-metadata.xml.sha1"/>
+		<copy todir="${maven-release-dir}/${maven-group}/${maven-artifact}/${maven-version}">
+			<fileset dir="${maven-local-dir}/${maven-group}/${maven-artifact}/${maven-version}"/> 
 		</copy>
 		
 	</target>

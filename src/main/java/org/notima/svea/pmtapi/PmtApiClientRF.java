@@ -1,20 +1,16 @@
 package org.notima.svea.pmtapi;
 
-import java.io.File;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import okhttp3.ResponseBody;
 
-import org.apache.commons.configuration2.XMLConfiguration;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.notima.svea.pmtapi.entity.Order;
 import org.notima.svea.pmtapi.entity.OrderRow;
 import org.notima.svea.pmtapi.util.JsonUtil;
-import org.slf4j.Logger;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -34,7 +30,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 public class PmtApiClientRF {
 
-	public static Logger clientLog = org.slf4j.LoggerFactory.getLogger("PmtApiClientRF");
+	public static Logger clientLog = java.util.logging.Logger.getLogger("PmtApiClientRF");
 
 	public static DateFormat dfmt = new SimpleDateFormat("yyyy-MM-dd");
 	
@@ -42,52 +38,8 @@ public class PmtApiClientRF {
 	private String secretWord;
 	private String serverName;
 	
-	
-	private Configurations configs = new Configurations();
-	
 	private	Retrofit	retroFit = null;
 	private PmtApiService service = null;
-
-	/**
-	 * Loads configuration from a configuration file. The file must be avalable as a resource
-	 * or the full path should be supplied.
-	 * 
-	 * @param configfile		The name (if resource) or full path + name of the configuration file.
-	 * @throws Exception		
-	 */
-	public void loadConfig(String configfile) throws Exception {
-
-		URL url = null;
-		
-		// Try absolute path first
-		File cf = new File(configfile);
-		if (!cf.exists()) {
-			// Try read as resource
-			url = ClassLoader.getSystemResource(configfile);
-		} else {
-			url = new URL(cf.getAbsolutePath());
-		}
-
-		if (url==null) {
-			System.out.println("Can't find configfile: " + configfile);
-			System.exit(-1);
-		}
-		
-		XMLConfiguration fc = configs.xml(url);
-		
-		serverName = fc.getString("server");
-		merchantId = fc.getString("merchantId");
-		secretWord = fc.getString("secretWord");
-		
-	}	
-	
-	/**
-	 * Initializes client with current values. loadConfig must have been called before.
-	 * 
-	 */
-	public void init() {
-		init(serverName, merchantId, secretWord);
-	}
 	
 	/**
 	 * Initializes client from supplied parameters
@@ -133,13 +85,13 @@ public class PmtApiClientRF {
 		String resultMsg = null; 
 
 		if (response.errorBody()!=null) {
-			clientLog.debug(response.errorBody().string());
+			clientLog.warning(response.errorBody().string());
 			resultMsg = response.errorBody().string();
 		} else {
 			resultMsg = response.body().string();
-			clientLog.debug(response.message());
-			clientLog.debug(resultMsg);
-			clientLog.debug(response.raw().toString());
+			clientLog.fine(response.message());
+			clientLog.fine(resultMsg);
+			clientLog.fine(response.raw().toString());
 		}		
 
 		if (resultMsg!=null && resultMsg.trim().length()>0) {
@@ -186,17 +138,17 @@ public class PmtApiClientRF {
 		String resultMsg = null; 
 
 		if (response.errorBody()!=null && response.errorBody().string()!=null && response.errorBody().string().length()>0) {
-			clientLog.debug(response.errorBody().string());
+			clientLog.warning(response.errorBody().string());
 			resultMsg = response.errorBody().string();
 		} else {
 			if (response.code()==200) {
 				resultMsg = response.body().string();
-				clientLog.debug(response.message());
-				clientLog.debug(resultMsg);
-				clientLog.debug(response.raw().toString());
+				clientLog.fine(response.message());
+				clientLog.fine(resultMsg);
+				clientLog.fine(response.raw().toString());
 			} else {
 				resultMsg = response.message();
-				clientLog.debug(response.code() + " : " + response.message());
+				clientLog.warning(response.code() + " : " + response.message());
 			}
 		}		
 

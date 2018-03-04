@@ -24,8 +24,7 @@ public class TestDeliverOrder {
 		PmtApiClientRF client = new PmtApiClientRF();
 		try {
 		
-			client.loadConfig("config-test.xml");
-			client.init();
+			client.init(TestConfig.SERVER, TestConfig.MERCHANT_ID, TestConfig.SECRET_WORD);
 			
 			String result = client.deliverCompleteOrder(183315L);
 			
