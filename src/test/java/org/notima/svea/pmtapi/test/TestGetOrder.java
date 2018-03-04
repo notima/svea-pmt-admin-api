@@ -28,7 +28,7 @@ public class TestGetOrder {
 		
 			client.init(TestConfig.SERVER, TestConfig.MERCHANT_ID, TestConfig.SECRET_WORD);
 			
-			Long orderId = 348001L;
+			Long orderId = 186694L;
 			
 			Order order = client.getOrder(orderId);
 			
