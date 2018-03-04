@@ -3,6 +3,9 @@
 
 	<loadproperties>
 		<file file="ant-build.properties"/>
+	</loadproperties>
+
+	<loadproperties>
 		<file file="ant-build-static.properties"/>
 	</loadproperties>
 	

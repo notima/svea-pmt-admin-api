@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.notima.svea</groupId>
   <artifactId>pmt-admin-api</artifactId>
-  <version>0.0.9</version>
+  <version>0.0.9-SNAPSHOT</version>
   <name>Svea Payment Admin API</name>
   
 <properties>
