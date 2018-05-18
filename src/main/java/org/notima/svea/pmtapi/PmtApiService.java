@@ -29,6 +29,6 @@ public interface PmtApiService {
 			@Header("Authorization")String auth,
 			@Header("Timestamp")String ts,
 			@Path("orderId")String orderId,
-			@Body()String jsonListOfLineIds);
+			@Body()Object jsonListOfLineIds);
 	
 }

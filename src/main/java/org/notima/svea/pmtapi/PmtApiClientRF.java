@@ -8,10 +8,11 @@ import java.util.logging.Logger;
 
 import org.notima.svea.pmtapi.entity.Order;
 import org.notima.svea.pmtapi.entity.OrderRow;
+import org.notima.svea.pmtapi.entity.OrderRowIdArray;
 import org.notima.svea.pmtapi.util.JsonUtil;
 
 import retrofit.RestAdapter;
-import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
 
 /**
  * This is a RetroFit-based REST-client to Svea Ekonomi's Payment Admin API.
@@ -53,10 +54,12 @@ public class PmtApiClientRF {
 		// Disable SNI to prevent SSL-name problem
 		// System.setProperty("jsse.enableSNIExtension", "false");
 		
-		retroFit = new RestAdapter.Builder().setEndpoint(this.serverName)
-				.build();
-
-		service = retroFit.create(PmtApiService.class);		
+		retroFit = new RestAdapter.Builder()
+						.setEndpoint(this.serverName)
+						.setConverter(new GsonConverter(PmtApiUtil.gson))
+						.build();
+		
+		service = retroFit.create(PmtApiService.class);
 		
 	}
 	
@@ -108,14 +111,40 @@ public class PmtApiClientRF {
 			}
 		}
 		
-		String body = "{ \"orderRowIds\": " + JsonUtil.gson.toJson(lines) + " }";
+		OrderRowIdArray body = new OrderRowIdArray();
+		body.setOrderRowIds(lines);
 		
-		String auth = PmtApiUtil.calculateAuthHeader(merchantId, body, secretWord, ts);
+		String auth = PmtApiUtil.calculateAuthHeader(merchantId, JsonUtil.gson.toJson(body), secretWord, ts);
 
 		String resultMsg = service.deliverOrder(auth, ts, orderId.toString(), body);
 		
 		return resultMsg;
 	}
+	
+	/**
+	 * Tells Svea Ekonomi that this order is delivered and should be billed.
+	 * No order rows are supplied, meaning all deliverable rows should be delivered.
+	 * 
+	 * @param orderId		The order to be delivered
+	 * @return				
+	 * @throws Exception
+	 */
+	public String deliverCompleteOrderNoCheck(Long orderId) throws Exception {
+		
+		
+		String ts = PmtApiUtil.getTimestampStr();
+		List<Long> lines = new ArrayList<Long>();
+		
+		OrderRowIdArray body = new OrderRowIdArray(); // Empty array
+		body.setOrderRowIds(lines);
+		
+		String auth = PmtApiUtil.calculateAuthHeader(merchantId, JsonUtil.gson.toJson(body), secretWord, ts);
+		
+		String resultMsg = service.deliverOrder(auth, ts, orderId.toString(), body);
+		
+		return resultMsg;
+	}
+	
 	
 	
 }

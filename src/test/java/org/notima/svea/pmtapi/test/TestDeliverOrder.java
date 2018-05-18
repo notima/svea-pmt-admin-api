@@ -26,7 +26,7 @@ public class TestDeliverOrder {
 		
 			client.init(TestConfig.SERVER, TestConfig.MERCHANT_ID, TestConfig.SECRET_WORD);
 			
-			String result = client.deliverCompleteOrder(183315L);
+			String result = client.deliverCompleteOrderNoCheck(928312L);
 			
 			System.out.println(result);
 			
