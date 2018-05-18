@@ -20,8 +20,11 @@ public class TestConfig {
 	public static String SERVER = "https://paymentadminapistage.svea.com";
 	public static String MERCHANT_ID = "124842";
 	public static String SECRET_WORD = "1NDxpT2WQ4PW6Ud95rLWKD98xVr45Q8O9Vd52nomC7U9B18jp7lHCu7nsiTJO1NWXjSx26vE41jJ4rul7FUP1cGKXm4wakxt3iF7k63ayleb1xX9Di2wW46t9felsSPW";
+	public static String CHECKOUT_ORDER_ID = "1111111";
 
 	public static String CREDENTIALS_FILE = "test-credentials.properties";
+	
+	public static Long	checkoutOrderId = null;
 	
 	static {
 		
@@ -37,6 +40,13 @@ public class TestConfig {
 				SERVER = props.getProperty("server", SERVER);
 				MERCHANT_ID = props.getProperty("merchantId", MERCHANT_ID);
 				SECRET_WORD = props.getProperty("secretWord", SECRET_WORD);
+				CHECKOUT_ORDER_ID = props.getProperty("checkoutOrderId", CHECKOUT_ORDER_ID);
+				
+				try {
+					checkoutOrderId = Long.parseLong(CHECKOUT_ORDER_ID);
+				} catch (Exception e) {
+					checkoutOrderId = null;
+				}
 				
 				testLogger.info("Test credentials supplied in file " + url.getFile());
 				
