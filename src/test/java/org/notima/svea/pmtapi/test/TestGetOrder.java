@@ -26,7 +26,7 @@ public class TestGetOrder {
 		PmtApiClientRF client = new PmtApiClientRF();
 		try {
 		
-			client.loadConfig("config-test-activeapparel-prod.xml");
+			client.loadConfig("config-test-client-prod.xml");
 			client.init();
 			
 			Long orderId = 348001L;
