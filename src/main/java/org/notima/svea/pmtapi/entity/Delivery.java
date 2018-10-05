@@ -12,11 +12,17 @@ public class Delivery {
 	@SerializedName("CreationDate")
 	private String	creationDate;
 	
+	@SerializedName("InvoiceId")
+	private String	invoiceId;
+	
 	@SerializedName("DeliveryAmount")
 	private Double	deliveryAmount;
 	
 	@SerializedName("CreditedAmount")
 	private Double	creditedAmount;
+	
+	@SerializedName("Credits")
+	private List<Credit> credits;
 	
 	@SerializedName("OrderRows")
 	private List<OrderRow> orderRows;
@@ -39,6 +45,14 @@ public class Delivery {
 	public void setCreationDate(String creationDate) {
 		this.creationDate = creationDate;
 	}
+	
+	public String getInvoiceId() {
+		return invoiceId;
+	}
+
+	public void setInvoiceId(String invoiceId) {
+		this.invoiceId = invoiceId;
+	}
 
 	public Double getDeliveryAmount() {
 		return deliveryAmount;
@@ -54,6 +68,14 @@ public class Delivery {
 
 	public void setCreditedAmount(Double creditedAmount) {
 		this.creditedAmount = creditedAmount;
+	}
+	
+	public List<Credit> getCredits() {
+		return credits;
+	}
+
+	public void setCredits(List<Credit> credits) {
+		this.credits = credits;
 	}
 
 	public List<OrderRow> getOrderRows() {
@@ -71,7 +93,5 @@ public class Delivery {
 	public void setActions(List<String> actions) {
 		this.actions = actions;
 	}
-
-	
 	
 }
