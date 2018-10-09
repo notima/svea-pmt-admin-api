@@ -21,6 +21,7 @@ public class TestConfig {
 	public static String MERCHANT_ID = "124842";
 	public static String SECRET_WORD = "1NDxpT2WQ4PW6Ud95rLWKD98xVr45Q8O9Vd52nomC7U9B18jp7lHCu7nsiTJO1NWXjSx26vE41jJ4rul7FUP1cGKXm4wakxt3iF7k63ayleb1xX9Di2wW46t9felsSPW";
 	public static String CHECKOUT_ORDER_ID = "1111111";
+	public static String ARTICLE_TO_DELIVER;
 
 	public static String CREDENTIALS_FILE = "test-credentials.properties";
 	
@@ -47,6 +48,8 @@ public class TestConfig {
 				} catch (Exception e) {
 					checkoutOrderId = null;
 				}
+
+				ARTICLE_TO_DELIVER = props.getProperty("articleToDeliver");
 				
 				testLogger.info("Test credentials supplied in file " + url.getFile());
 				
