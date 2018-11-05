@@ -175,7 +175,7 @@ public class PmtApiClientRF {
 	 * Tells Svea Ekonomi that this order is delivered and should be billed.
 	 * 
 	 * @param orderId		The order to be delivered
-	 * @param rows			The order rows to be delivered. If null, all rows are delivered.
+	 * @param deliverRows	The order rows to be delivered. If null, all rows are delivered.
 	 * 						The information to be supplied in the orderrows are either
 	 * 	                    - OrderLineID - Matching LineIds are delivered
 	 *                      or
