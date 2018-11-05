@@ -1,10 +1,16 @@
 package org.notima.svea.pmtapi;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.net.HttpURLConnection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
@@ -54,6 +60,9 @@ public class PmtApiClientRF {
 		this.serverName = serverName;
 		this.merchantId = merchantId;
 		this.secretWord = secretWord;
+
+		// Allow patch HTTP-call.
+		allowMethods("PATCH");
 		
 		// Disable SNI to prevent SSL-name problem
 		// System.setProperty("jsse.enableSNIExtension", "false");
@@ -66,6 +75,36 @@ public class PmtApiClientRF {
 		service = retroFit.create(PmtApiService.class);
 		
 	}
+	
+	/**
+	 * Allow PATCH method in JDK 1.6
+	 * 
+	 * See https://stackoverflow.com/questions/25163131/httpurlconnection-invalid-http-method-patch#32503192
+	 * 
+	 * @param methods
+	 */
+	private static void allowMethods(String... methods) {
+        try {
+            Field methodsField = HttpURLConnection.class.getDeclaredField("methods");
+
+            Field modifiersField = Field.class.getDeclaredField("modifiers");
+            modifiersField.setAccessible(true);
+            modifiersField.setInt(methodsField, methodsField.getModifiers() & ~Modifier.FINAL);
+
+            methodsField.setAccessible(true);
+
+            String[] oldMethods = (String[]) methodsField.get(null);
+            Set<String> methodsSet = new LinkedHashSet<String>(Arrays.asList(oldMethods));
+            methodsSet.addAll(Arrays.asList(methods));
+            String[] newMethods = methodsSet.toArray(new String[0]);
+
+            methodsField.set(null/*static field*/, newMethods);
+        } catch (NoSuchFieldException e) {
+            throw new IllegalStateException(e);
+        } catch ( IllegalAccessException e) {
+        	throw new IllegalStateException(e);
+        }
+    }	
 	
 	/**
 	 * 
@@ -89,6 +128,37 @@ public class PmtApiClientRF {
 		return order;
 	}
 
+	/**
+	 * Cancels a complete order.
+	 * 
+	 * 
+	 * @param orderId
+	 * @return
+	 * @throws Exception
+	 */
+	public String cancelCompleteOrder(Long orderId) throws Exception {
+		
+		Order order = new Order();
+		order.setCancelled(true);
+		
+		String ts = PmtApiUtil.getTimestampStr();
+		String auth = PmtApiUtil.calculateAuthHeader(merchantId, JsonUtil.gson.toJson(order), secretWord, ts);
+		
+		Response response = service.cancelOrder(auth, ts, orderId.toString(), order);
+		
+		String resultMsg = null;
+		if (response.getStatus()==204) {
+			resultMsg = "OK";
+		} else {
+			resultMsg = new String(((TypedByteArray) response.getBody()).getBytes());
+			if (resultMsg.length()==0)
+				resultMsg = Integer.toString(response.getStatus());
+		}
+		
+		return resultMsg;
+		
+	}
+	
 	/**
 	 * Tells Svea Ekonomi that this order is delivered and should be billed.
 	 * A call here delivers the complete order.

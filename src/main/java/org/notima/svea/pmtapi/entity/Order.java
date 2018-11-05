@@ -28,6 +28,8 @@ public class Order {
 	private String	nationalId;
 	@SerializedName("IsCompany")
 	private boolean	isCompany;
+	@SerializedName("IsCancelled")
+	private boolean	isCancelled;
 	@SerializedName("CancelledAmount")
 	private Double	cancelledAmount;
 	@SerializedName("OrderAmount")
@@ -126,6 +128,12 @@ public class Order {
 	}
 	public void setCancelledAmount(Double cancelledAmount) {
 		this.cancelledAmount = cancelledAmount;
+	}
+	public boolean isCancelled() {
+		return isCancelled;
+	}
+	public void setCancelled(boolean isCancelled) {
+		this.isCancelled = isCancelled;
 	}
 	public Double getOrderAmount() {
 		return orderAmount;
