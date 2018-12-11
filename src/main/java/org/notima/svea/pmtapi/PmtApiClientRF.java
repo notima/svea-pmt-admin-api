@@ -14,12 +14,15 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
+import org.notima.svea.pmtapi.entity.Delivery;
 import org.notima.svea.pmtapi.entity.Order;
 import org.notima.svea.pmtapi.entity.OrderRow;
 import org.notima.svea.pmtapi.entity.OrderRowIdArray;
 import org.notima.svea.pmtapi.util.JsonUtil;
 
+import retrofit.ResponseCallback;
 import retrofit.RestAdapter;
+import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 import retrofit.mime.TypedByteArray;
@@ -129,6 +132,24 @@ public class PmtApiClientRF {
 	}
 
 	/**
+	 * Cancels a specific amount on given order.
+	 * 
+	 * @param orderId
+	 * @param cancelledAmount	In normal currency (not minor currency)
+	 * @return
+	 * @throws Exception
+	 */
+	public String cancelOrderAmount(Long orderId, double cancelledAmount) throws Exception {
+
+		Long cancelledAmt = Math.round(cancelledAmount * 100);
+		Order order = new Order();
+		order.setCancelledAmount(cancelledAmt);
+		
+		return patchOrder(orderId, order);
+		
+	}
+	
+	/**
 	 * Cancels a complete order.
 	 * 
 	 * 
@@ -141,10 +162,77 @@ public class PmtApiClientRF {
 		Order order = new Order();
 		order.setCancelled(true);
 		
+		return patchOrder(orderId, order);
+		
+	}
+
+	/**
+	 * Sends a cancel order patch with payload parameters from order
+	 * 
+	 * @param orderId
+	 * @param order
+	 * @return
+	 * @throws Exception
+	 */
+	private String patchOrder(Long orderId, Order order) throws Exception {
+
 		String ts = PmtApiUtil.getTimestampStr();
 		String auth = PmtApiUtil.calculateAuthHeader(merchantId, JsonUtil.gson.toJson(order), secretWord, ts);
 		
-		Response response = service.cancelOrder(auth, ts, orderId.toString(), order);
+		Response response = service.patchOrder(auth, ts, orderId.toString(), order);
+		
+		String resultMsg = null;
+		if (response.getStatus()==204) {
+			resultMsg = "OK";
+		} else {
+			resultMsg = new String(((TypedByteArray) response.getBody()).getBytes());
+			if (resultMsg.length()==0)
+				resultMsg = Integer.toString(response.getStatus());
+		}
+		
+		return "";
+		
+	}
+
+	/**
+	 * Credits amount on specific delivery
+	 * 
+	 * @param orderId
+	 * @param deliveryId
+	 * @param creditedAmount		Amount in normal amount (not minor currency)
+	 * @return
+	 * @throws Exception
+	 */
+	public String creditAmount(Long orderId, Long deliveryId, double creditedAmount) throws Exception {
+		
+		Long creditedAmt = Math.round(creditedAmount * 100);
+		
+		Delivery delivery = new Delivery();
+		delivery.setCreditedAmount(creditedAmt);
+		
+		return patchDelivery(orderId, deliveryId, delivery);
+		
+	}
+	
+	/**
+	 * Patch delivery with contents of delivery.
+	 * 
+	 * @param orderId
+	 * @param deliveryId
+	 * @param delivery
+	 * @return
+	 * @throws Exception
+	 */
+	private String patchDelivery(Long orderId, Long deliveryId, Delivery delivery) throws Exception {
+
+		String ts = PmtApiUtil.getTimestampStr();
+		String auth = PmtApiUtil.calculateAuthHeader(merchantId, JsonUtil.gson.toJson(delivery), secretWord, ts);
+		
+		Response response = service.patchDelivery(auth, 
+												  ts, 
+												  orderId.toString(), 
+												  deliveryId.toString(), 
+												  delivery);
 		
 		String resultMsg = null;
 		if (response.getStatus()==204) {
@@ -158,6 +246,7 @@ public class PmtApiClientRF {
 		return resultMsg;
 		
 	}
+	
 	
 	/**
 	 * Tells Svea Ekonomi that this order is delivered and should be billed.

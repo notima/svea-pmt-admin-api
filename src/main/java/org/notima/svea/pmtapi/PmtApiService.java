@@ -33,15 +33,24 @@ public interface PmtApiService {
 			@Path("orderId")String orderId,
 			@Body()Object jsonListOfLineIds);
 	
-/*	@Headers({
-		"X-HTTP-Method-Override: PATCH"
-		})  */
-	@PATCH("/api/v1/orders/{orderId}/")
-	Response cancelOrder(
+	@Headers({
+		"Accept: application/json, text/html"
+		})
+	@PATCH("/api/v1/orders/{orderId}")
+	Response patchOrder(
 			@Header("Authorization")String auth,
 			@Header("Timestamp")String ts,
 			@Path("orderId")String orderId,
-			@Body()Object cancelInput
+			@Body()Object patchInput			
 			) ;
+
+	@PATCH("/api/v1/orders/{orderId}/deliveries/{deliveryId}")
+	Response patchDelivery(
+			@Header("Authorization")String auth,
+			@Header("Timestamp")String ts,
+			@Path("orderId")String orderId,
+			@Path("deliveryId")String deliveryId,
+			@Body()Object patchInput
+			);
 	
 }

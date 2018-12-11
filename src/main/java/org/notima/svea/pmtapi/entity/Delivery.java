@@ -16,10 +16,10 @@ public class Delivery {
 	private String	invoiceId;
 	
 	@SerializedName("DeliveryAmount")
-	private Double	deliveryAmount;
+	private Long	deliveryAmount;
 	
 	@SerializedName("CreditedAmount")
-	private Double	creditedAmount;
+	private Long	creditedAmount;
 	
 	@SerializedName("Credits")
 	private List<Credit> credits;
@@ -54,19 +54,19 @@ public class Delivery {
 		this.invoiceId = invoiceId;
 	}
 
-	public Double getDeliveryAmount() {
+	public Long getDeliveryAmount() {
 		return deliveryAmount;
 	}
 
-	public void setDeliveryAmount(Double deliveryAmount) {
+	public void setDeliveryAmount(Long deliveryAmount) {
 		this.deliveryAmount = deliveryAmount;
 	}
 
-	public Double getCreditedAmount() {
+	public Long getCreditedAmount() {
 		return creditedAmount;
 	}
 
-	public void setCreditedAmount(Double creditedAmount) {
+	public void setCreditedAmount(Long creditedAmount) {
 		this.creditedAmount = creditedAmount;
 	}
 	

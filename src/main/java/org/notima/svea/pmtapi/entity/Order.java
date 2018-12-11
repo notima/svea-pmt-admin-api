@@ -27,13 +27,13 @@ public class Order {
 	@SerializedName("NationalId")
 	private String	nationalId;
 	@SerializedName("IsCompany")
-	private boolean	isCompany;
+	private Boolean	isCompany;
 	@SerializedName("IsCancelled")
-	private boolean	isCancelled;
+	private Boolean	isCancelled;
 	@SerializedName("CancelledAmount")
-	private Double	cancelledAmount;
+	private Long	cancelledAmount;
 	@SerializedName("OrderAmount")
-	private	Double	orderAmount;
+	private	Long	orderAmount;
 	
 	@SerializedName("BillingAddress")
 	private Address billingAddress;
@@ -117,28 +117,28 @@ public class Order {
 	public void setNationalId(String nationalId) {
 		this.nationalId = nationalId;
 	}
-	public boolean isCompany() {
+	public Boolean isCompany() {
 		return isCompany;
 	}
-	public void setCompany(boolean isCompany) {
+	public void setCompany(Boolean isCompany) {
 		this.isCompany = isCompany;
 	}
-	public Double getCancelledAmount() {
+	public Long getCancelledAmount() {
 		return cancelledAmount;
 	}
-	public void setCancelledAmount(Double cancelledAmount) {
+	public void setCancelledAmount(Long cancelledAmount) {
 		this.cancelledAmount = cancelledAmount;
 	}
-	public boolean isCancelled() {
+	public Boolean isCancelled() {
 		return isCancelled;
 	}
-	public void setCancelled(boolean isCancelled) {
+	public void setCancelled(Boolean isCancelled) {
 		this.isCancelled = isCancelled;
 	}
-	public Double getOrderAmount() {
+	public Long getOrderAmount() {
 		return orderAmount;
 	}
-	public void setOrderAmount(Double orderAmount) {
+	public void setOrderAmount(Long orderAmount) {
 		this.orderAmount = orderAmount;
 	}
 	public List<OrderRow> getOrderRows() {
