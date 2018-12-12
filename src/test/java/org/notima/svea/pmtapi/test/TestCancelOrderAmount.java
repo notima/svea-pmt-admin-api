@@ -30,7 +30,7 @@ public class TestCancelOrderAmount {
 				fail("No valid checkout order id specified in test-credentials.properties");
 			}
 			
-			String result = client.cancelOrderAmount(TestConfig.checkoutOrderId, 200);
+			String result = client.cancelOrderAmount(TestConfig.checkoutOrderId, 20);
 			
 			System.out.println(result);
 			
