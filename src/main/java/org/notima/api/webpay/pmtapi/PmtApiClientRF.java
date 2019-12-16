@@ -49,7 +49,7 @@ public class PmtApiClientRF {
 	private PmtApiService service = null;
 
 	/**
-	 * Loads configuration from a configuration file. The file must be avalable as a resource
+	 * Loads configuration from a configuration file. The file must be available as a resource
 	 * or the full path should be supplied.
 	 * 
 	 * @param configfile		The name (if resource) or full path + name of the configuration file.
@@ -69,8 +69,8 @@ public class PmtApiClientRF {
 		}
 
 		if (url==null) {
-			System.out.println("Can't find configfile: " + configfile);
-			System.exit(-1);
+			clientLog.error("Can't find configfile: {}", configfile);
+			return;
 		}
 		
 		XMLConfiguration fc = configs.xml(url);
@@ -113,6 +113,17 @@ public class PmtApiClientRF {
 
 		service = retroFit.create(PmtApiService.class);		
 		
+	}
+	
+	/**
+	 * Checks if this client has been initialized with credentials
+	 * 
+	 * @return
+	 */
+	public boolean isValid() {
+		return (serverName!=null && serverName.trim().length()>0 &&
+				merchantId!=null && merchantId.trim().length()>0 && 
+				secretWord!=null && secretWord.trim().length()>0);
 	}
 	
 	/**

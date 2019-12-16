@@ -11,9 +11,10 @@ public class TestDeliverOrder extends TestBase {
 
 		try {
 			
-			String result = client.deliverCompleteOrder(183315L);
+			String orderIdStr = testProperties.getProperty("test.deliverOrderId");			
+			String result = client.deliverCompleteOrder(Long.parseLong(orderIdStr));
 			
-			System.out.println(result);
+			log.info(result);
 			
 		} catch (Exception e) {
 			

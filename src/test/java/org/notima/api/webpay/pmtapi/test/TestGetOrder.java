@@ -13,9 +13,16 @@ public class TestGetOrder extends TestBase {
 	public void testGetOrder() {
 
 		PmtApiClientRF client = new PmtApiClientRF();
+		
 		try {
 			
-			Long orderId = 348001L;
+			if (!client.isValid()) {
+				log.warn("Client not initialized. Skipping test");
+				return;
+			}
+			
+			String orderIdStr = testProperties.getProperty("test.getOrderId", "100000");
+			Long orderId = Long.parseLong(orderIdStr);
 			
 			Order order = client.getOrder(orderId);
 			
