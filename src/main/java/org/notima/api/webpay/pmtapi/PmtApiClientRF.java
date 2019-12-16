@@ -73,7 +73,7 @@ public class PmtApiClientRF {
 	 * or the full path should be supplied.
 	 * 
 	 * @param configfile		The name (if resource) or full path + name of the configuration file.
-	 * @throws Exception		
+	 * @throws Exception		If something goes wrong
 	 */
 	public void loadConfig(String configfile) throws Exception {
 
