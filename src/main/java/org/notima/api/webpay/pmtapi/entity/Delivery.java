@@ -1,4 +1,4 @@
-package org.notima.svea.pmtapi.entity;
+package org.notima.api.webpay.pmtapi.entity;
 
 import java.util.List;
 

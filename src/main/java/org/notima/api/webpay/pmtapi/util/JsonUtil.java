@@ -1,4 +1,4 @@
-package org.notima.svea.pmtapi.util;
+package org.notima.api.webpay.pmtapi.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

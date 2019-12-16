@@ -1,33 +1,19 @@
-package org.notima.svea.pmtapi.test;
+package org.notima.api.webpay.pmtapi.test;
 
 import static org.junit.Assert.fail;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.notima.svea.pmtapi.PmtApiClientRF;
-import org.notima.svea.pmtapi.entity.Order;
-import org.notima.svea.pmtapi.util.JsonUtil;
+import org.notima.api.webpay.pmtapi.PmtApiClientRF;
+import org.notima.api.webpay.pmtapi.entity.Order;
+import org.notima.api.webpay.pmtapi.util.JsonUtil;
 
-public class TestGetOrder {
-
-	@Before
-	public void setUp() throws Exception {
-			
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
+public class TestGetOrder extends TestBase {
 	
 	@Test
 	public void testGetOrder() {
 
 		PmtApiClientRF client = new PmtApiClientRF();
 		try {
-		
-			client.loadConfig("config-test-client-prod.xml");
-			client.init();
 			
 			Long orderId = 348001L;
 			

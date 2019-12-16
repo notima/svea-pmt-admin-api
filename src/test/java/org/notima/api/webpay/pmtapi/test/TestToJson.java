@@ -1,4 +1,4 @@
-package org.notima.svea.pmtapi.test;
+package org.notima.api.webpay.pmtapi.test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.notima.svea.pmtapi.PmtApiUtil;
-import org.notima.svea.pmtapi.entity.Order;
-import org.notima.svea.pmtapi.entity.OrderRow;
+import org.notima.api.webpay.pmtapi.PmtApiUtil;
+import org.notima.api.webpay.pmtapi.entity.Order;
+import org.notima.api.webpay.pmtapi.entity.OrderRow;
 
 public class TestToJson {
 
@@ -21,7 +21,7 @@ public class TestToJson {
 	}
 
 	@Test
-	public void test() {
+	public void testOrderToJson() {
 		Order order = new Order();
 		order.setMerchantOrderId("56943879");
 		OrderRow row = new OrderRow();

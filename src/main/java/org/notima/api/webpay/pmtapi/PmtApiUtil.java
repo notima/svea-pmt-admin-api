@@ -1,4 +1,4 @@
-package org.notima.svea.pmtapi;
+package org.notima.api.webpay.pmtapi;
 
 
 import java.io.UnsupportedEncodingException;

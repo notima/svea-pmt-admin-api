@@ -1,4 +1,4 @@
-package org.notima.svea.pmtapi;
+package org.notima.api.webpay.pmtapi;
 
 import java.io.File;
 import java.net.URL;
@@ -11,9 +11,9 @@ import okhttp3.ResponseBody;
 
 import org.apache.commons.configuration2.XMLConfiguration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
-import org.notima.svea.pmtapi.entity.Order;
-import org.notima.svea.pmtapi.entity.OrderRow;
-import org.notima.svea.pmtapi.util.JsonUtil;
+import org.notima.api.webpay.pmtapi.entity.Order;
+import org.notima.api.webpay.pmtapi.entity.OrderRow;
+import org.notima.api.webpay.pmtapi.util.JsonUtil;
 import org.slf4j.Logger;
 
 import retrofit2.Call;

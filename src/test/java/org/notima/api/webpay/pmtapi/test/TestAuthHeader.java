@@ -1,9 +1,9 @@
-package org.notima.svea.pmtapi.test;
+package org.notima.api.webpay.pmtapi.test;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.notima.svea.pmtapi.PmtApiUtil;
+import org.notima.api.webpay.pmtapi.PmtApiUtil;
 
 public class TestAuthHeader {
 
@@ -16,7 +16,7 @@ public class TestAuthHeader {
 	}
 
 	@Test
-	public void test() throws Exception {
+	public void testAuthHeader() throws Exception {
 
 		String ts = "2017-09-25 12:24";
 		// Below credentials are Svea's official test credentials available in the manual.

@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.notima.svea</groupId>
+  <groupId>org.notima.api.webpay</groupId>
   <artifactId>pmt-admin-api</artifactId>
   <version>1.0.0</version>
   <name>Svea Payment Admin API</name>
@@ -99,6 +99,7 @@
 	
 	<organization>
 		<name>Notima System Integration AB</name>
-		<url>https://github.com/notima</url>
+		<url>https://github.com/notima/svea-pmt-admin-api</url>
 	</organization>
+	<description>Library for talking to https://paymentadminapi.svea.com/api</description>
 </project>
