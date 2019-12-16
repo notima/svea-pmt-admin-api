@@ -1,5 +1,25 @@
 package org.notima.api.webpay.pmtapi;
 
+/**
+ * 
+ * Copyright 2019 Notima System Integration AB (Sweden)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * @author Daniel Tamm
+ *
+ */
+
 import java.io.File;
 import java.net.URL;
 import java.text.DateFormat;
@@ -118,7 +138,7 @@ public class PmtApiClientRF {
 	/**
 	 * Checks if this client has been initialized with credentials
 	 * 
-	 * @return
+	 * @return	True if there are values in serverName, merchantId and secretWord.
 	 */
 	public boolean isValid() {
 		return (serverName!=null && serverName.trim().length()>0 &&
@@ -130,7 +150,7 @@ public class PmtApiClientRF {
 	 * 
 	 * @param orderId	The checkout order ID.
 	 * @return			The order as a java object.
-	 * @throws Exception
+	 * @throws Exception	If something goes wrong
 	 */
 	public Order getOrder(Long orderId) throws Exception {
 
@@ -164,8 +184,8 @@ public class PmtApiClientRF {
 	 * Tells Svea Ekonomi that this order is delivered and should be billed.
 	 * 
 	 * @param orderId		The order to be delivered
-	 * @return				
-	 * @throws Exception
+	 * @return				OK if the order is successfully delivered.				
+	 * @throws Exception	If something goes wrong
 	 */
 	public String deliverCompleteOrder(Long orderId) throws Exception {
 		

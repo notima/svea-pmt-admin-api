@@ -1,5 +1,25 @@
 package org.notima.api.webpay.pmtapi;
 
+/**
+ * 
+ * Copyright 2019 Notima System Integration AB (Sweden)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * @author Daniel Tamm
+ *
+ */
+
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -14,6 +34,12 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+/**
+ * Utility class for talking to Payment API. 
+ * 
+ * @author Daniel Tamm
+ *
+ */
 public class PmtApiUtil {
 	
 	// DateTime Format used to communicate with Svea's API (UTC/GMT)
@@ -54,8 +80,8 @@ public class PmtApiUtil {
 	 * @param secretWord	This is a presumably base64 encoded secret word that's given
 	 * 						to you by Svea Ekonomi.
 	 * @param timestamp		Timestamp as a string in format yyyy-MM-dd HH:mm:ss. Timezone must be UTC / GMT.
-	 * @return
-	 * @throws UnsupportedEncodingException
+	 * @return				An auth header.
+	 * @throws UnsupportedEncodingException		If something goes wrong
 	 */
 	public static String calculateAuthHeader(String merchantId, String message, String secretWord, String timestamp) throws UnsupportedEncodingException {
 
@@ -82,7 +108,7 @@ public class PmtApiUtil {
 	/**
 	 * Returns timestamp string using current time and UTC-timezone.
 	 * 
-	 * @return
+	 * @return		A timestamp formatted as a string.
 	 */
 	public static String getTimestampStr() {
 		// Get time in UTC
@@ -107,8 +133,8 @@ public class PmtApiUtil {
 	/**
 	 * Decodes a base64 message. 
 	 * 
-	 * @param message
-	 * @return
+	 * @param message		The base64 message.
+	 * @return		The message decoded
 	 */
 	public static String base64decodeMsg(String message) {
 		
