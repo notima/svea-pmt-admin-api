@@ -3,8 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.notima.api.webpay</groupId>
 	<artifactId>pmt-admin-api</artifactId>
-	<version>1.0.1</version>
-	<name>Svea Payment Admin API</name>
+	<packaging>bundle</packaging>
+	<version>1.0.2</version>
+	<name>Svea Webpay Payment Admin API</name>
 
 	<distributionManagement>
 		<snapshotRepository>
@@ -161,6 +162,32 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>4.2.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Export-Package>
+							org.notima.api.webpay.pmtapi,
+							org.notima.api.webpay.pmtapi.entity
+						</Export-Package>
+						<Import-Package>
+							com.google.gson,
+							com.google.gson.annotations,
+							org.slf4j,
+							javax.xml.ws,
+							javax.xml.namespace,
+							javax.xml.*,
+							javax.net.*
+						</Import-Package>
+						<Embed-Dependency>*;scope=compile|runtime;artifactId=!slf4j-api|slf4j-log4j12|log4j|junit|gson</Embed-Dependency>
+						<Embed-Transitive>true</Embed-Transitive>
+					</instructions>
+				</configuration>
 			</plugin>
 
 			<!-- Create jar with dependencies: mvn package assembly:single -->

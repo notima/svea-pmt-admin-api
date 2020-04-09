@@ -174,7 +174,8 @@ public class PmtApiClientRF {
 		}		
 
 		if (resultMsg!=null && resultMsg.trim().length()>0) {
-			return PmtApiUtil.gson.fromJson(resultMsg, Order.class);
+			Order result = PmtApiUtil.gson.fromJson(resultMsg, Order.class);
+			return result;
 		} else {
 			return null;
 		}
