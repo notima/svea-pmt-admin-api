@@ -6,7 +6,7 @@ Library for talking to https://paymentadminapi.svea.com/api
 This API is primarily used to administer order that has been created using
 the checkout.
 
-API documentation is found in PaymentAdmin API 1.1 pdf
+API documentation is found here https://paymentadminapi.svea.com/documentation/#/
 
 ## Use
 
