@@ -4,7 +4,7 @@
 	<groupId>org.notima.api.webpay</groupId>
 	<artifactId>pmt-admin-api</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<name>Svea Webpay Payment Admin API</name>
 
 	<distributionManagement>

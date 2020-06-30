@@ -58,6 +58,8 @@ public class PmtApiClientRF {
 
 	public static DateFormat dfmt = new SimpleDateFormat("yyyy-MM-dd");
 	
+	public static final String DEFAULT_SERVERNAME = "https://paymentadminapi.svea.com";
+	
 	private String merchantId;
 	private String secretWord;
 	private String serverName;
@@ -99,6 +101,8 @@ public class PmtApiClientRF {
 		merchantId = fc.getString("merchantId");
 		secretWord = fc.getString("secretWord");
 		
+		if (serverName==null) serverName = DEFAULT_SERVERNAME;
+		
 	}	
 	
 	/**
@@ -118,6 +122,8 @@ public class PmtApiClientRF {
 	 */
 	public void init(String serverName, String merchantId, String secretWord) {
 
+		if (serverName==null) serverName = DEFAULT_SERVERNAME;		
+		
 		this.serverName = serverName;
 		this.merchantId = merchantId;
 		this.secretWord = secretWord;
