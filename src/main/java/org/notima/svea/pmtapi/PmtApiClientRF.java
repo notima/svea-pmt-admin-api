@@ -20,9 +20,7 @@ import org.notima.svea.pmtapi.entity.OrderRow;
 import org.notima.svea.pmtapi.entity.OrderRowIdArray;
 import org.notima.svea.pmtapi.util.JsonUtil;
 
-import retrofit.ResponseCallback;
 import retrofit.RestAdapter;
-import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 import retrofit.mime.TypedByteArray;
@@ -388,7 +386,7 @@ public class PmtApiClientRF {
 		Response response = service.deliverOrder(auth, ts, orderId.toString(), body);
 		
 		String resultMsg = null;
-		if (response.getBody()==null) {
+		if (response.getStatus()==202) {
 			resultMsg = "OK";
 		} else {
 			resultMsg = new String(((TypedByteArray) response.getBody()).getBytes());

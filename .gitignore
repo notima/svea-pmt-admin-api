@@ -1,2 +1,4 @@
 /target/
 /ant-build.properties
+.classpath
+.settings
