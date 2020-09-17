@@ -8,6 +8,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface PmtApiService {
 
@@ -30,5 +31,16 @@ public interface PmtApiService {
 			@Header("Timestamp")String ts,
 			@Path("orderId")String orderId,
 			@Body()String jsonListOfLineIds);
+	
+	@Headers({
+		"Content-type: application/json"
+	})
+	@GET("/api/v2/reports")
+	Call<ResponseBody> getReconciliationReport(
+			@Header("Authorization")String auth,
+			@Header("Timestamp")String ts,
+			@Query("date")String date,
+			@Query("includeWithholding")Boolean includeWithholding)
+			;
 	
 }

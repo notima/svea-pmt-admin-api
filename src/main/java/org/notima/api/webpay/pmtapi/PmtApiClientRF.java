@@ -25,6 +25,7 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -244,6 +245,45 @@ public class PmtApiClientRF {
 			return null;
 		}
 		
+	}
+	
+
+	/**
+	 * 
+	 * @param reportDate			The date for the report.
+	 * @param includeWithholding	If withholding information should be included.
+	 * @return						The report.
+	 * @throws Exception	If something goes wrong
+	 */
+	public String getReconciliationReport(Date reportDate, boolean includeWithholding) throws Exception {
+
+		String ts = PmtApiUtil.getTimestampStr();
+		String auth = PmtApiUtil.calculateAuthHeader(merchantId, "", secretWord, ts);
+
+		String dateStr = dfmt.format(reportDate);
+		
+		Call<ResponseBody> call = service.getReconciliationReport(auth, ts, dateStr, includeWithholding);
+		
+		Response<ResponseBody> response = call.execute();
+		
+		String resultMsg = null; 
+
+		if (response.errorBody()!=null) {
+			clientLog.debug(response.errorBody().string());
+			resultMsg = response.errorBody().string();
+		} else {
+			resultMsg = response.body().string();
+			clientLog.debug(response.message());
+			clientLog.debug(resultMsg);
+			clientLog.debug(response.raw().toString());
+		}		
+
+		if (resultMsg!=null && resultMsg.trim().length()>0) {
+			// Order result = PmtApiUtil.gson.fromJson(resultMsg, Order.class);
+			return resultMsg;
+		} else {
+			return null;
+		}
 	}
 	
 	
