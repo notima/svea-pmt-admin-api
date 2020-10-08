@@ -252,7 +252,7 @@ public class PmtApiClientRF {
 	 * 
 	 * @param reportDate			The date for the report.
 	 * @param includeWithholding	If withholding information should be included.
-	 * @return						The report.
+	 * @return						The report in Json. If there's an error, the raw error message is returned.
 	 * @throws Exception	If something goes wrong
 	 */
 	public String getReconciliationReport(Date reportDate, boolean includeWithholding) throws Exception {
@@ -269,8 +269,9 @@ public class PmtApiClientRF {
 		String resultMsg = null; 
 
 		if (response.errorBody()!=null) {
-			clientLog.debug(response.errorBody().string());
-			resultMsg = response.errorBody().string();
+			clientLog.warn(response.errorBody().string());
+			clientLog.warn(response.toString());
+			resultMsg = response.toString();
 		} else {
 			resultMsg = response.body().string();
 			clientLog.debug(response.message());
@@ -279,7 +280,6 @@ public class PmtApiClientRF {
 		}		
 
 		if (resultMsg!=null && resultMsg.trim().length()>0) {
-			// Order result = PmtApiUtil.gson.fromJson(resultMsg, Order.class);
 			return resultMsg;
 		} else {
 			return null;
