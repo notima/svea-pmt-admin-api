@@ -2,12 +2,16 @@ package org.notima.api.webpay.pmtapi.test;
 
 import static org.junit.Assert.fail;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.Test;
 
 public class TestGetReconciliationReport extends TestBase {
+	
+	DateFormat dfmt = new SimpleDateFormat("yyyy-MM-dd");
 	
 	@Test
 	public void testGetReconciliationReport() {
@@ -23,7 +27,11 @@ public class TestGetReconciliationReport extends TestBase {
 			cal.add(Calendar.DATE, -1);
 			Date yesterDay = cal.getTime();
 			
-			String result = client.getReconciliationReport(yesterDay, true);
+			Date specificDate = null;
+			
+			specificDate = dfmt.parse("2020-10-02");
+			
+			String result = client.getReconciliationReport(specificDate!=null ? specificDate : yesterDay, true);
 			
 			System.out.println(result);
 			
