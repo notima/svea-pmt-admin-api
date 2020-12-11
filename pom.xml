@@ -74,6 +74,7 @@
 				<excludes>
 					<exclude>config-test*</exclude>
 					<exclude>test-details.properties</exclude>
+					<exclude>test-credentials.properties</exclude>
 				</excludes>
 			</resource>
 		</resources>
