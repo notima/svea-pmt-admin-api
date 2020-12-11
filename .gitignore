@@ -2,3 +2,4 @@
 /ant-build.properties
 .classpath
 .settings
+bin
