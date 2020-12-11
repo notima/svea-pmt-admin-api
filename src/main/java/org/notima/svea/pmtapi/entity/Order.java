@@ -22,6 +22,8 @@ public class Order {
 	private String	customerReference;
 	@SerializedName("PaymentType")
 	private String	paymentType;
+	@SerializedName("PeppolId")
+	private String	peppolId;
 	@SerializedName("CreationDate")
 	private String	creatationDate;
 	@SerializedName("NationalId")
@@ -104,6 +106,12 @@ public class Order {
 	}
 	public void setPaymentType(String paymentType) {
 		this.paymentType = paymentType;
+	}
+	public String getPeppolId() {
+		return peppolId;
+	}
+	public void setPeppolId(String peppolId) {
+		this.peppolId = peppolId;
 	}
 	public String getCreatationDate() {
 		return creatationDate;

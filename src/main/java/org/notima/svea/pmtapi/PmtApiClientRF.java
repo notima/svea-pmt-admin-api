@@ -1,8 +1,10 @@
 package org.notima.svea.pmtapi;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,13 +14,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.logging.Logger;
 
+import org.apache.commons.configuration2.XMLConfiguration;
+import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.notima.svea.pmtapi.entity.Delivery;
 import org.notima.svea.pmtapi.entity.Order;
 import org.notima.svea.pmtapi.entity.OrderRow;
 import org.notima.svea.pmtapi.entity.OrderRowIdArray;
 import org.notima.svea.pmtapi.util.JsonUtil;
+import org.slf4j.Logger;
 
 import retrofit.RestAdapter;
 import retrofit.client.Response;
@@ -38,16 +42,64 @@ import retrofit.mime.TypedByteArray;
  */
 public class PmtApiClientRF {
 
-	public static Logger clientLog = java.util.logging.Logger.getLogger("PmtApiClientRF");
+	public static Logger clientLog = org.slf4j.LoggerFactory.getLogger("PmtApiClientRF");
 
 	public static DateFormat dfmt = new SimpleDateFormat("yyyy-MM-dd");
+	
+	public static final String DEFAULT_SERVERNAME = "https://paymentadminapi.svea.com";	
 	
 	private String merchantId;
 	private String secretWord;
 	private String serverName;
 	
+	private Configurations configs = new Configurations();	
+	
 	private	RestAdapter	retroFit = null;
 	private PmtApiService service = null;
+	
+	
+	/**
+	 * Loads configuration from a configuration file. The file must be available as a resource
+	 * or the full path should be supplied.
+	 * 
+	 * @param configfile		The name (if resource) or full path + name of the configuration file.
+	 * @throws Exception		If something goes wrong
+	 */
+	public void loadConfig(String configfile) throws Exception {
+
+		URL url = null;
+		
+		// Try absolute path first
+		File cf = new File(configfile);
+		if (!cf.exists()) {
+			// Try read as resource
+			url = ClassLoader.getSystemResource(configfile);
+		} else {
+			url = new URL(cf.getAbsolutePath());
+		}
+
+		if (url==null) {
+			clientLog.error("Can't find configfile: {}", configfile);
+			return;
+		}
+		
+		XMLConfiguration fc = configs.xml(url);
+		
+		serverName = fc.getString("server");
+		merchantId = fc.getString("merchantId");
+		secretWord = fc.getString("secretWord");
+		
+		if (serverName==null) serverName = DEFAULT_SERVERNAME;
+		
+	}		
+	
+	/**
+	 * Initializes client with current values. loadConfig must have been called before.
+	 * 
+	 */
+	public void init() {
+		init(serverName, merchantId, secretWord);
+	}	
 	
 	/**
 	 * Initializes client from supplied parameters
