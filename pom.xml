@@ -177,10 +177,40 @@
 
 		</plugins>
 </build>  
-	
-	
+
 	<organization>
 		<name>Notima System Integration AB</name>
-		<url>https://github.com/notima</url>
+		<url>https://github.com/notima/svea-pmt-admin-api</url>
 	</organization>
+	<description>Library for talking to https://paymentadminapi.svea.com/api</description>
+	
+	<scm>
+		<url>https://github.com/notima/svea-pmt-admin-api</url>
+		<connection>scm:git:git://github.com/notima/svea-pmt-admin-api.git</connection>
+		<developerConnection>Daniel Tamm</developerConnection>
+	</scm>
+	<issueManagement>
+  	<url>https://github.com/notima/svea-pmt-admin-api/issues</url>
+  	<system>Github Issues</system>
+  </issueManagement>
+  <inceptionYear>2017</inceptionYear>
+  <url>https://github.com/notima/svea-pmt-admin-api</url>
+  
+  	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+  
+	<developers>
+		<developer>
+			<name>Daniel Tamm</name>
+			<email>daniel@notima.se</email>
+			<organization>Notima System Integration AB</organization>
+			<organizationUrl>https://github.com/notima</organizationUrl>
+		</developer>
+	</developers>
+	
 </project>
