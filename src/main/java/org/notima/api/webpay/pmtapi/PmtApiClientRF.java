@@ -27,7 +27,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 
 import org.apache.commons.configuration2.XMLConfiguration;
@@ -65,6 +67,7 @@ public class PmtApiClientRF {
 	private String secretWord;
 	private String serverName;
 	
+	private long	timeout = 120;		// Default timeout to 120 seconds.
 	
 	private Configurations configs = new Configurations();
 	
@@ -131,10 +134,19 @@ public class PmtApiClientRF {
 		
 		// Disable SNI to prevent SSL-name problem
 		// System.setProperty("jsse.enableSNIExtension", "false");
+
+		// Create a http client with custom timeout
+		OkHttpClient.Builder hb = new OkHttpClient.Builder()
+				.connectTimeout(timeout, TimeUnit.SECONDS)
+				.readTimeout(timeout, TimeUnit.SECONDS)
+				.writeTimeout(timeout, TimeUnit.SECONDS);
+		
+		OkHttpClient okHttpClient = hb.build();
 		
 		ScalarsConverterFactory converter = ScalarsConverterFactory.create();
 		
 		retroFit = new Retrofit.Builder().baseUrl(this.serverName)
+				.client(okHttpClient)
 				.addConverterFactory(converter)
 				.build();
 
@@ -246,7 +258,6 @@ public class PmtApiClientRF {
 		}
 		
 	}
-	
 
 	/**
 	 * 
@@ -285,6 +296,28 @@ public class PmtApiClientRF {
 			return null;
 		}
 	}
+
+	/**
+	 * Get timeout in seconds for calls to DEFAULT_SERVERNAME. 
+	 * 
+	 * @return	The set timeout in seconds.
+	 */
+	public long getTimeout() {
+		return timeout;
+	}
+
+	/**
+	 * Set timeout in seconds for calls to DEFAULT_SERVERNAME. 
+	 * 
+	 * Default is 120 seconds.
+	 * 
+	 */
+	public void setTimeout(long timeout) {
+		this.timeout = timeout;
+	}
+	
+	
+	
 	
 	
 }

@@ -29,7 +29,7 @@ public class TestGetReconciliationReport extends TestBase {
 			
 			Date specificDate = null;
 			
-			specificDate = dfmt.parse("2020-10-02");
+			specificDate = dfmt.parse("2021-01-11");
 			
 			String result = client.getReconciliationReport(specificDate!=null ? specificDate : yesterDay, true);
 			
