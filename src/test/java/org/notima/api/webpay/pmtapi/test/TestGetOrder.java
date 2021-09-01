@@ -3,7 +3,6 @@ package org.notima.api.webpay.pmtapi.test;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
-import org.notima.api.webpay.pmtapi.PmtApiClientRF;
 import org.notima.api.webpay.pmtapi.entity.Order;
 import org.notima.api.webpay.pmtapi.util.JsonUtil;
 
@@ -12,8 +11,6 @@ public class TestGetOrder extends TestBase {
 	@Test
 	public void testGetOrder() {
 
-		PmtApiClientRF client = new PmtApiClientRF();
-		
 		try {
 			
 			if (!client.isValid()) {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
-	This configuration file must be copied to location config.xml
-	See Sveas test documentation for testing details.
+	This configuration file must be copied to location config-test.xml
+	See Svea's test documentation for testing details.
  -->
 
 <configuration>
