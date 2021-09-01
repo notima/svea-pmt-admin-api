@@ -165,13 +165,21 @@ public class PmtApiClientRF {
 				secretWord!=null && secretWord.trim().length()>0);
 	}
 	
+	public CheckoutOrder getCheckoutOrder(Long orderId) throws Exception {
+		
+		CheckoutOrder checkoutOrder = new CheckoutOrder();
+		Order order = getOrder(orderId);
+		checkoutOrder.setOrder(order);
+		return checkoutOrder;
+	}
+	
 	/**
 	 * 
 	 * @param orderId	The checkout order ID.
 	 * @return			The order as a java object.
 	 * @throws Exception	If something goes wrong
 	 */
-	public Order getOrder(Long orderId) throws Exception {
+	private Order getOrder(Long orderId) throws Exception {
 
 		String ts = PmtApiUtil.getTimestampStr();
 		String auth = PmtApiUtil.calculateAuthHeader(merchantId, "", secretWord, ts);

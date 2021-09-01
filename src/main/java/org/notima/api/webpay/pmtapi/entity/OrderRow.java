@@ -1,5 +1,7 @@
 package org.notima.api.webpay.pmtapi.entity;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 
 public class OrderRow {
@@ -22,6 +24,8 @@ public class OrderRow {
 	private String	unit;
 	@SerializedName("IsCancelled")
 	private boolean	isCancelled;
+	@SerializedName("Actions")
+	private List<String>	actions;
 	
 	public Long getOrderRowId() {
 		return orderRowId;

@@ -3,7 +3,7 @@ package org.notima.api.webpay.pmtapi.test;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
-import org.notima.api.webpay.pmtapi.entity.Order;
+import org.notima.api.webpay.pmtapi.CheckoutOrder;
 import org.notima.api.webpay.pmtapi.util.JsonUtil;
 
 public class TestGetOrder extends TestBase {
@@ -21,7 +21,7 @@ public class TestGetOrder extends TestBase {
 			String orderIdStr = testProperties.getProperty("test.getOrderId", "100000");
 			Long orderId = Long.parseLong(orderIdStr);
 			
-			Order order = client.getOrder(orderId);
+			CheckoutOrder order = client.getCheckoutOrder(orderId);
 			
 			if (order==null) {
 				fail("No such order: " + orderId);

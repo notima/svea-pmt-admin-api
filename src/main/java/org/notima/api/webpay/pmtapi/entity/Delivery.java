@@ -12,11 +12,17 @@ public class Delivery {
 	@SerializedName("CreationDate")
 	private String	creationDate;
 	
+	@SerializedName("InvoiceId")
+	private String	invoiceId;
+	
 	@SerializedName("DeliveryAmount")
 	private Double	deliveryAmount;
 	
 	@SerializedName("CreditedAmount")
 	private Double	creditedAmount;
+	
+	@SerializedName("Credits")
+	private List<Credit> credits;
 	
 	@SerializedName("OrderRows")
 	private List<OrderRow> orderRows;

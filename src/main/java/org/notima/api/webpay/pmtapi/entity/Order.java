@@ -14,12 +14,20 @@ public class Order {
 	private String	merchantOrderId;
 	@SerializedName("OrderStatus")
 	private String	orderStatus;
+	@SerializedName("SystemStatus")
+	private String	systemStatus;
+	@SerializedName("SystemStatusMessage")
+	private String	systemStatusMessage;
+	@SerializedName("PaymentCreditStatus")
+	private String	paymentCreditStatus;
 	@SerializedName("EmailAddress")
 	private String	emailAddress;
 	@SerializedName("PhoneNumber")
 	private String	phoneNumber;
 	@SerializedName("CustomerReference")
 	private String	customerReference;
+	@SerializedName("PeppolId")
+	private String	peppolId;
 	@SerializedName("PaymentType")
 	private String	paymentType;
 	@SerializedName("CreationDate")
@@ -50,6 +58,9 @@ public class Order {
 	
 	@SerializedName("SveaWillBuy")
 	private String	sveaWillBuy;
+	
+	@SerializedName("ExpirationDate")
+	private String	expirationDate;
 	
 	public Long getId() {
 		return id;
