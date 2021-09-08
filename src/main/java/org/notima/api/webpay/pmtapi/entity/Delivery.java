@@ -69,6 +69,22 @@ public class Delivery {
 	public void setOrderRows(List<OrderRow> orderRows) {
 		this.orderRows = orderRows;
 	}
+	
+	public String getInvoiceId() {
+		return invoiceId;
+	}
+
+	public void setInvoiceId(String invoiceId) {
+		this.invoiceId = invoiceId;
+	}
+
+	public List<Credit> getCredits() {
+		return credits;
+	}
+
+	public void setCredits(List<Credit> credits) {
+		this.credits = credits;
+	}
 
 	public List<String> getActions() {
 		return actions;
