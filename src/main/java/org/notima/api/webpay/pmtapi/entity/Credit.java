@@ -14,5 +14,31 @@ public class Credit {
 	
 	@SerializedName("Actions")
 	private List<String>	actions;
+
+	public Double getAmount() {
+		return Amount;
+	}
+
+	public void setAmount(Double amount) {
+		Amount = amount;
+	}
+
+	public List<OrderRow> getOrderRows() {
+		return orderRows;
+	}
+
+	public void setOrderRows(List<OrderRow> orderRows) {
+		this.orderRows = orderRows;
+	}
+
+	public List<String> getActions() {
+		return actions;
+	}
+
+	public void setActions(List<String> actions) {
+		this.actions = actions;
+	}
+	
+	
 	
 }
