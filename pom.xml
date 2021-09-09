@@ -80,6 +80,7 @@
 					<exclude>config-test*</exclude>
 					<exclude>test-details.properties</exclude>
 					<exclude>test-credentials.properties</exclude>
+					<exclude>order-test.json</exclude>
 				</excludes>
 			</resource>
 		</resources>
