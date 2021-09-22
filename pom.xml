@@ -81,6 +81,7 @@
 					<exclude>test-details.properties</exclude>
 					<exclude>test-credentials.properties</exclude>
 					<exclude>order-test.json</exclude>
+					<exclude>test-order-suite*</exclude>
 				</excludes>
 			</resource>
 		</resources>
