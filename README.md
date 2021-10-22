@@ -15,7 +15,7 @@ Releases are found in Maven-Central repository and can easliy be used by adding 
     <dependency>
         <groupId>org.notima.api.webpay</groupId>
         <artifactId>pmt-admin-api</artifactId>
-        <version>1.0.2</version>
+        <version>2.1.0-SNAPSHOT</version>
     </dependency>
 
 Or in karaf
