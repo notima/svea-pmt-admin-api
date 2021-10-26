@@ -3,6 +3,7 @@ package org.notima.api.webpay.pmtapi.test;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.notima.api.webpay.pmtapi.PmtApiCredential;
 import org.notima.api.webpay.pmtapi.util.JsonUtil;
 
 public class OrderSuiteTestSampleCreator {
@@ -21,8 +22,8 @@ public class OrderSuiteTestSampleCreator {
 	public void createSampleTestAndSaveToFile() throws IOException {
 		
 		suite = new OrderTestSuite();
-		suite.setMerchantId("");
-		suite.setSecret("");
+		suite.addCredential(PmtApiCredential.buildEmptyDefaultCredential());
+		
 		OrderTestCase orderTestCase = new OrderTestCase();
 		orderTestCase.setOrderId(1L);
 		suite.addTestCase(orderTestCase);

@@ -36,6 +36,7 @@ import org.apache.commons.configuration2.XMLConfiguration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.notima.api.webpay.pmtapi.entity.Order;
 import org.notima.api.webpay.pmtapi.entity.OrderRow;
+import org.notima.api.webpay.pmtapi.exception.NoSuchOrderException;
 import org.notima.api.webpay.pmtapi.util.JsonUtil;
 import org.slf4j.Logger;
 
@@ -74,6 +75,12 @@ public class PmtApiClientRF {
 	private	Retrofit	retroFit = null;
 	private PmtApiService service = null;
 
+	public static PmtApiClientRF buildFromCredentials(PmtApiCredential pac) {
+		PmtApiClientRF client = new PmtApiClientRF();
+		client.init(pac);
+		return client;
+	}
+	
 	/**
 	 * Loads configuration from a configuration file. The file must be available as a resource
 	 * or the full path should be supplied.
@@ -106,31 +113,41 @@ public class PmtApiClientRF {
 		secretWord = fc.getString("secretWord");
 		
 		if (serverName==null) serverName = DEFAULT_SERVERNAME;
+		init();
 		
 	}	
 	
 	/**
-	 * Initializes client with current values. loadConfig must have been called before.
+	 * Initializes client from supplied parameters.
 	 * 
+	 * @param credential		A credential record
 	 */
-	public void init() {
-		init(serverName, merchantId, secretWord);
+	public void init(PmtApiCredential credential) {
+		
+		serverName = credential.getServer();
+		merchantId = credential.getMerchantId();
+		secretWord = credential.getSecret();
+		init();
+		
 	}
 	
 	/**
-	 * Initializes client from supplied parameters
 	 * 
-	 * @param	serverName		The server (ie https://server.com)
-	 * @param	merchantId		The merchant ID supplied by Svea Ekonomi.
-	 * @param	secretWord		The secret word for the given merchant ID.
+	 * @param server			The server
+	 * @param merchantId		The merchantId
+	 * @param secretWord		The secret word
 	 */
-	public void init(String serverName, String merchantId, String secretWord) {
+	public void init(String server, String merchantId, String secretWord) {
+		PmtApiCredential cred = new PmtApiCredential();
+		cred.setServer(server);
+		cred.setMerchantId(merchantId);
+		cred.setSecret(secretWord);
+		init();
+	}
+	
+	private void init() {
 
 		if (serverName==null) serverName = DEFAULT_SERVERNAME;		
-		
-		this.serverName = serverName;
-		this.merchantId = merchantId;
-		this.secretWord = secretWord;
 		
 		// Disable SNI to prevent SSL-name problem
 		// System.setProperty("jsse.enableSNIExtension", "false");
@@ -155,6 +172,14 @@ public class PmtApiClientRF {
 	}
 	
 	/**
+	 * 
+	 * @return	The identifier of this client.
+	 */
+	public String getIdentifier() {
+		return merchantId;
+	}
+	
+	/**
 	 * Checks if this client has been initialized with credentials
 	 * 
 	 * @return	True if there are values in serverName, merchantId and secretWord.
@@ -165,11 +190,14 @@ public class PmtApiClientRF {
 				secretWord!=null && secretWord.trim().length()>0);
 	}
 	
-	public CheckoutOrder getCheckoutOrder(Long orderId) throws Exception {
+	public CheckoutOrder getCheckoutOrder(Long orderId) throws Exception, NoSuchOrderException {
 		
 		CheckoutOrder checkoutOrder = new CheckoutOrder();
 		Order order = getOrder(orderId);
+		if (order==null) throw new NoSuchOrderException(orderId);
+		
 		checkoutOrder.setOrder(order);
+		
 		return checkoutOrder;
 	}
 	

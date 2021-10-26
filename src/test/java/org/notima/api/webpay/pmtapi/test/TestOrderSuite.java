@@ -6,6 +6,9 @@ import java.io.IOException;
 
 import org.junit.Test;
 import org.notima.api.webpay.pmtapi.CheckoutOrder;
+import org.notima.api.webpay.pmtapi.PmtApiClientRF;
+import org.notima.api.webpay.pmtapi.PmtApiCredential;
+import org.notima.api.webpay.pmtapi.exception.NoSuchOrderException;
 import org.notima.api.webpay.pmtapi.util.JsonUtil;
 
 public class TestOrderSuite extends TestBase {
@@ -71,26 +74,24 @@ public class TestOrderSuite extends TestBase {
 	}
 	
 	private void initClientFromTestSuite() {
-		client.init(
-				testSuite.getServer(), 
-				testSuite.getMerchantId(), 
-				testSuite.getSecret()
-				);
+		
+		for (PmtApiCredential pac : testSuite.getCredentials()) {
+			clientCollection.addPmtApiClient(pac);
+		}
+		
 	}
 	
 	private void runTestCase(OrderTestCase otc) {
 		
 		CheckoutOrder order;
 		try {
-			order = client.getCheckoutOrder(otc.getOrderId());
-		
-			if (order==null || order.getOrder()==null) {
-				fail("No such order: " + otc.getOrderId());
-				return;
-			}
+			
+			order = clientCollection.getCheckoutOrder(otc.getOrderId());
 			
 			System.out.println(JsonUtil.gson.toJson(order));
 
+		} catch (NoSuchOrderException nsoe) {
+			fail("No such order: " + nsoe.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.getMessage());

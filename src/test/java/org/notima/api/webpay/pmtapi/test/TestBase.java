@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Before;
+import org.notima.api.webpay.pmtapi.PmtApiClientCollection;
 import org.notima.api.webpay.pmtapi.PmtApiClientRF;
 import org.slf4j.Logger;
 
@@ -15,6 +16,7 @@ public class TestBase {
 
 	protected TestFileFinder testFileFinder = new TestFileFinder();
 	protected Properties testProperties;
+	protected PmtApiClientCollection	clientCollection = new PmtApiClientCollection();
 	protected PmtApiClientRF client = new PmtApiClientRF();
 	
 	@Before
@@ -23,7 +25,6 @@ public class TestBase {
 		try {
 			
 			client.loadConfig(testFileFinder.getTestConfigFile());
-			client.init();
 			
 			testProperties = testFileFinder.getTestProperties();
 			

@@ -3,12 +3,11 @@ package org.notima.api.webpay.pmtapi.test;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.notima.api.webpay.pmtapi.PmtApiCredential;
+
 public class OrderTestSuite {
 
-	private String	server;
-	private String	merchantId;
-	private String	secret;
-	
+	private List<PmtApiCredential>	credentials;
 	private List<OrderTestCase>		orderTestCases;
 
 	public void addTestCase(OrderTestCase otc) {
@@ -18,30 +17,21 @@ public class OrderTestSuite {
 		orderTestCases.add(otc);
 	}
 	
-	public String getMerchantId() {
-		return merchantId;
+	public List<PmtApiCredential> getCredentials() {
+		return credentials;
 	}
 
-	public void setMerchantId(String merchantId) {
-		this.merchantId = merchantId;
+	public void setCredentials(List<PmtApiCredential> credentials) {
+		this.credentials = credentials;
 	}
 
-	public String getSecret() {
-		return secret;
-	}
-
-	public void setSecret(String secret) {
-		this.secret = secret;
+	public void addCredential(PmtApiCredential credential) {
+		if (credentials==null) {
+			credentials = new ArrayList<PmtApiCredential>();
+		}
+		credentials.add(credential);
 	}
 	
-	public String getServer() {
-		return server;
-	}
-
-	public void setServer(String server) {
-		this.server = server;
-	}
-
 	public List<OrderTestCase> getOrderTestCases() {
 		return orderTestCases;
 	}
