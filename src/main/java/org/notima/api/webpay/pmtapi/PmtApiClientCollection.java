@@ -13,9 +13,9 @@ public class PmtApiClientCollection {
 	private Map<String, PmtApiClientRF>	clients;
 	
 	/**
-	 * Adds or replaces a client based on it's identifier.
+	 * Adds or replaces a client based on it's credentials.
 	 * 
-	 * @param client
+	 * @param credential
 	 */
 	public void addPmtApiClient(PmtApiCredential credential) {
 		

@@ -182,7 +182,8 @@
 					<instructions>
 						<Export-Package>
 							org.notima.api.webpay.pmtapi,
-							org.notima.api.webpay.pmtapi.entity
+							org.notima.api.webpay.pmtapi.entity,
+							org.notima.api.webpay.pmtapi.exception
 						</Export-Package>
 						<Import-Package>
 							com.google.gson,
