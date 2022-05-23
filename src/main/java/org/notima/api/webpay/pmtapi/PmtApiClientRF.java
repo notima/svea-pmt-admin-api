@@ -38,6 +38,7 @@ import org.notima.api.webpay.pmtapi.entity.Order;
 import org.notima.api.webpay.pmtapi.entity.OrderRow;
 import org.notima.api.webpay.pmtapi.exception.InvalidAuthorizationException;
 import org.notima.api.webpay.pmtapi.exception.NoSuchOrderException;
+import org.notima.api.webpay.pmtapi.exception.UnauthorizedException;
 import org.notima.api.webpay.pmtapi.util.JsonUtil;
 import org.slf4j.Logger;
 
@@ -307,8 +308,9 @@ public class PmtApiClientRF {
 	 * @param includeWithholding	If withholding information should be included.
 	 * @return						The report in Json. If there's an error, the raw error message is returned.
 	 * @throws Exception	If something goes wrong
+	 * @throws Exception	If credentials are wrong.
 	 */
-	public String getReconciliationReport(Date reportDate, boolean includeWithholding) throws Exception {
+	public String getReconciliationReport(Date reportDate, boolean includeWithholding) throws UnauthorizedException, Exception {
 
 		String ts = PmtApiUtil.getTimestampStr();
 		String auth = PmtApiUtil.calculateAuthHeader(merchantId, "", secretWord, ts);
@@ -324,6 +326,9 @@ public class PmtApiClientRF {
 		if (response.errorBody()!=null) {
 			clientLog.warn(response.errorBody().string());
 			clientLog.warn(response.toString());
+			if (response.code()==401 && "Unauthorized".equalsIgnoreCase(response.message())) {
+				throw new UnauthorizedException(merchantId);
+			}
 			resultMsg = response.toString();
 		} else {
 			resultMsg = response.body().string();
