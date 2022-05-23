@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import org.junit.Test;
 import org.notima.api.webpay.pmtapi.CheckoutOrder;
-import org.notima.api.webpay.pmtapi.PmtApiClientRF;
 import org.notima.api.webpay.pmtapi.PmtApiCredential;
 import org.notima.api.webpay.pmtapi.exception.NoSuchOrderException;
 import org.notima.api.webpay.pmtapi.util.JsonUtil;

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.notima.api.webpay.pmtapi.exception.InvalidAuthorizationException;
 import org.notima.api.webpay.pmtapi.exception.NoSuchOrderException;
 import org.notima.api.webpay.pmtapi.exception.NoSuchPmtApiClientException;
 
@@ -58,6 +59,8 @@ public class PmtApiClientCollection {
 				order = client.getCheckoutOrder(orderId);
 				order.setMerchantId(client.getIdentifier());
 			} catch (NoSuchOrderException nsoe) {
+				merchantIds.append(client.getIdentifier() + " ");
+			} catch (InvalidAuthorizationException iae) {
 				merchantIds.append(client.getIdentifier() + " ");
 			}
 		}

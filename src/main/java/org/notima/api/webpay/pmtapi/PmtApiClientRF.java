@@ -36,6 +36,7 @@ import org.apache.commons.configuration2.XMLConfiguration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.notima.api.webpay.pmtapi.entity.Order;
 import org.notima.api.webpay.pmtapi.entity.OrderRow;
+import org.notima.api.webpay.pmtapi.exception.InvalidAuthorizationException;
 import org.notima.api.webpay.pmtapi.exception.NoSuchOrderException;
 import org.notima.api.webpay.pmtapi.util.JsonUtil;
 import org.slf4j.Logger;
@@ -190,7 +191,7 @@ public class PmtApiClientRF {
 				secretWord!=null && secretWord.trim().length()>0);
 	}
 	
-	public CheckoutOrder getCheckoutOrder(Long orderId) throws Exception, NoSuchOrderException {
+	public CheckoutOrder getCheckoutOrder(Long orderId) throws Exception, NoSuchOrderException, InvalidAuthorizationException {
 		
 		CheckoutOrder checkoutOrder = new CheckoutOrder();
 		Order order = getOrder(orderId);
@@ -207,7 +208,7 @@ public class PmtApiClientRF {
 	 * @return			The order as a java object.
 	 * @throws Exception	If something goes wrong
 	 */
-	private Order getOrder(Long orderId) throws Exception {
+	private Order getOrder(Long orderId) throws InvalidAuthorizationException, Exception {
 
 		String ts = PmtApiUtil.getTimestampStr();
 		String auth = PmtApiUtil.calculateAuthHeader(merchantId, "", secretWord, ts);
@@ -218,6 +219,11 @@ public class PmtApiClientRF {
 		
 		String resultMsg = null; 
 
+		if (response.code()==403) {
+			clientLog.debug(response.toString());
+			throw new InvalidAuthorizationException(merchantId, orderId);
+		}
+		
 		if (response.errorBody()!=null) {
 			clientLog.debug(response.errorBody().string());
 			resultMsg = response.errorBody().string();
