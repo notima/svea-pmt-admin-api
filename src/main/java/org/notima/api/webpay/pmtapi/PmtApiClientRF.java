@@ -327,7 +327,7 @@ public class PmtApiClientRF {
 			clientLog.warn(response.errorBody().string());
 			clientLog.warn(response.toString());
 			if (response.code()==401 && "Unauthorized".equalsIgnoreCase(response.message())) {
-				throw new UnauthorizedException(merchantId);
+				throw new UnauthorizedException(merchantId, secretWord);
 			}
 			resultMsg = response.toString();
 		} else {
