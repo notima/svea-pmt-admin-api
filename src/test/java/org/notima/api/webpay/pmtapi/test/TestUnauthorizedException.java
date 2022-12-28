@@ -8,12 +8,12 @@ public class TestUnauthorizedException {
 	@Test
 	public void testUnauthorizedException() {
 		
-		UnauthorizedException ue = new UnauthorizedException("123456", "abcdefghjijsklrjsldj");
-		org.junit.Assert.assertEquals("Incorrect credentials for merchantId 123456 and secret abcde...jsldj", ue.getMessage());
+		UnauthorizedException ue = new UnauthorizedException("555555-5555", "123456", "abcdefghjijsklrjsldj");
+		org.junit.Assert.assertEquals("[555555-5555] Incorrect credentials for merchantId 123456 and secret abcde...jsldj", ue.getMessage());
 		
-		ue = new UnauthorizedException("123456", "abc");
+		ue = new UnauthorizedException("555555-5555", "123456", "abc");
 
-		org.junit.Assert.assertEquals("Incorrect credentials for merchantId 123456 and secret a*****", ue.getMessage());
+		org.junit.Assert.assertEquals("[555555-5555] Incorrect credentials for merchantId 123456 and secret a*****", ue.getMessage());
 		
 		
 	}

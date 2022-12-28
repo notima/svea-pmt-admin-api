@@ -69,6 +69,7 @@ public class PmtApiClientRF {
 	private String merchantId;
 	private String secretWord;
 	private String serverName;
+	private String orgNo;
 	
 	private long	timeout = 120;		// Default timeout to 120 seconds.
 	
@@ -129,6 +130,7 @@ public class PmtApiClientRF {
 		serverName = credential.getServer();
 		merchantId = credential.getMerchantId();
 		secretWord = credential.getSecret();
+		orgNo = credential.getOrgNo();
 		init();
 		
 	}
@@ -136,12 +138,14 @@ public class PmtApiClientRF {
 	/**
 	 * 
 	 * @param server			The server
+	 * @param orgNo				The orgNo this merchantId belongs to
 	 * @param merchantId		The merchantId
 	 * @param secretWord		The secret word
 	 */
-	public void init(String server, String merchantId, String secretWord) {
+	public void init(String server, String orgNo, String merchantId, String secretWord) {
 		PmtApiCredential cred = new PmtApiCredential();
 		cred.setServer(server);
+		cred.setOrgNo(orgNo);
 		cred.setMerchantId(merchantId);
 		cred.setSecret(secretWord);
 		init();
@@ -327,7 +331,7 @@ public class PmtApiClientRF {
 			clientLog.warn(response.errorBody().string());
 			clientLog.warn(response.toString());
 			if (response.code()==401 && "Unauthorized".equalsIgnoreCase(response.message())) {
-				throw new UnauthorizedException(merchantId, secretWord);
+				throw new UnauthorizedException(orgNo, merchantId, secretWord);
 			}
 			resultMsg = response.toString();
 		} else {

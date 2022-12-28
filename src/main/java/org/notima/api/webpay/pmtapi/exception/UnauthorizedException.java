@@ -11,16 +11,16 @@ public class UnauthorizedException extends Exception {
 		super();
 	}
 	
-	public UnauthorizedException(String merchantId) {
-		super(createMessage(merchantId, null));
+	public UnauthorizedException(String orgNo, String merchantId) {
+		super(createMessage(orgNo, merchantId, null));
 	}
 	
-	public UnauthorizedException(String merchantId, String secret) {
-		super(createMessage(merchantId, secret));
+	public UnauthorizedException(String orgNo, String merchantId, String secret) {
+		super(createMessage(orgNo, merchantId, secret));
 	}
 	
-	private static String createMessage(String merchantId, String secret) {
-		return "Incorrect credentials for merchantId " + merchantId + " and secret " + obscureSecret(secret);
+	private static String createMessage(String orgNo, String merchantId, String secret) {
+		return "[" + (orgNo!=null ? orgNo : "?") + "] Incorrect credentials for merchantId " + merchantId + " and secret " + obscureSecret(secret);
 	}
 	
 	private static String obscureSecret(String secret) {
