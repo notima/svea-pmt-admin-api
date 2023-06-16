@@ -148,7 +148,7 @@ public class PmtApiClientRF {
 		cred.setOrgNo(orgNo);
 		cred.setMerchantId(merchantId);
 		cred.setSecret(secretWord);
-		init();
+		init(cred);
 	}
 	
 	private void init() {
@@ -273,7 +273,7 @@ public class PmtApiClientRF {
 			}
 		}
 		
-		String body = "{ \"orderRowIds\": " + JsonUtil.gson.toJson(lines) + " }";
+		String body = "{ \"OrderRowIds\": " + JsonUtil.gson.toJson(lines) + " }";
 		
 		String auth = PmtApiUtil.calculateAuthHeader(merchantId, body, secretWord, ts);
 
@@ -282,10 +282,11 @@ public class PmtApiClientRF {
 		Response<ResponseBody> response = call.execute();
 		
 		String resultMsg = null; 
-
-		if (response.errorBody()!=null && response.errorBody().string()!=null && response.errorBody().string().length()>0) {
-			clientLog.debug(response.errorBody().string());
+		
+		if (response.errorBody()!=null) {
 			resultMsg = response.errorBody().string();
+			clientLog.debug(resultMsg);
+			response.errorBody().close();
 		} else {
 			if (response.code()==200) {
 				resultMsg = response.body().string();
@@ -296,6 +297,7 @@ public class PmtApiClientRF {
 				resultMsg = response.message();
 				clientLog.debug(response.code() + " : " + response.message());
 			}
+			response.body().close();
 		}		
 
 		if (resultMsg!=null && resultMsg.trim().length()>0) {

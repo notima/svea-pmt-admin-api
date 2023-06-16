@@ -25,7 +25,7 @@ public interface PmtApiService {
 	@Headers({
 		"Content-type: application/json"
 	})
-	@POST("/api/v1/orders/{orderId}/deliveries")
+	@POST("/api/v1/orders/{orderId}/deliveries/")
 	Call<ResponseBody> deliverOrder(
 			@Header("Authorization")String auth,
 			@Header("Timestamp")String ts,
