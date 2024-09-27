@@ -33,6 +33,7 @@ import java.util.TimeZone;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.Strictness;
 
 /**
  * Utility class for talking to Payment API. 
@@ -64,7 +65,7 @@ public class PmtApiUtil {
 		
 		GsonBuilder builder = new GsonBuilder().setPrettyPrinting().setDateFormat(dfmtStr);
 		builder.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY);
-		builder.setLenient();
+		builder.setStrictness(Strictness.LENIENT);
 		gson = builder.create();
 		
 		dateFmt = new SimpleDateFormat(dfmtStr);

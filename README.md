@@ -15,12 +15,12 @@ Releases are found in Maven-Central repository and can easliy be used by adding 
     <dependency>
         <groupId>org.notima.api.webpay</groupId>
         <artifactId>pmt-admin-api</artifactId>
-        <version>2.1.3</version>
+        <version>2.2.0-SNAPSHOT</version>
     </dependency>
 
 Or in karaf
 
-	install -s mvn:com.google.code.gson/gson/2.8.9
-	install -s mvn:org.notima.api.webpay/pmt-admin-api
+	install -s mvn:com.google.code.gson/gson/2.11.0
+	install -s mvn:org.notima.api.webpay/pmt-admin-api/2.2.0-SNAPSHOT
 	
 

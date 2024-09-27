@@ -101,7 +101,7 @@ public class PmtApiClientRF {
 			// Try read as resource
 			url = ClassLoader.getSystemResource(configfile);
 		} else {
-			url = new URL(cf.getAbsolutePath());
+			url = cf.toURI().toURL();
 		}
 
 		if (url==null) {
