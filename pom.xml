@@ -108,17 +108,12 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.13</version>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
+				<version>0.9.0</version>
 				<extensions>true</extensions>
 				<configuration>
-					<serverId>ossrh</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>true</autoReleaseAfterClose>
-					<stagingProgressTimeoutMinutes>20</stagingProgressTimeoutMinutes>
-					<keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
-					<keepStagingRepositoryOnFailure>true</keepStagingRepositoryOnFailure>
+					<publishingServerId>central</publishingServerId>
 				</configuration>
 			</plugin>
 
@@ -227,7 +222,7 @@
 	<scm>
 		<url>https://github.com/notima/svea-pmt-admin-api</url>
 		<connection>scm:git:git://github.com/notima/svea-pmt-admin-api.git</connection>
-		<developerConnection>Daniel Tamm</developerConnection>
+		<developerConnection>scm:git:https://github.com/notima/svea-pmt-admin-api.git</developerConnection>
 	</scm>
 	<issueManagement>
   	<url>https://github.com/notima/svea-pmt-admin-api/issues</url>
